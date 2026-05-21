@@ -3,6 +3,7 @@ import type { TextFix } from './types';
 import { lintDocument } from './linter';
 import { ScssCodeActionProvider, buildAutoFixEdits } from './autofix';
 import { registerBreakpointCompletions } from './breakpoint-completions';
+import { formatKawaiiDiagnostic, isKawaiiErrorsEnabled } from '../kawaii';
 
 const SCSS_LANG = { language: 'scss' };
 const DEBOUNCE_MS = 400;
@@ -24,9 +25,21 @@ export function registerScssLinter(context: vscode.ExtensionContext): void {
     if (isSourceStyleFile(document)) { collection.delete(document.uri); return; }
 
     const results = lintDocument(document);
+    const kawaii = isKawaiiErrorsEnabled();
     const diagnostics = results.map(r => {
-      if (r.fix) { fixMap.set(r.diagnostic, r.fix); }
-      return r.diagnostic;
+      const d = kawaii
+        ? new vscode.Diagnostic(
+            r.diagnostic.range,
+            formatKawaiiDiagnostic(r.diagnostic, r.diagnostic.severity),
+            r.diagnostic.severity
+          )
+        : r.diagnostic;
+      if (kawaii) {
+        d.source = r.diagnostic.source;
+        d.code = r.diagnostic.code;
+      }
+      if (r.fix) { fixMap.set(d, r.fix); }
+      return d;
     });
     collection.set(document.uri, diagnostics);
   }

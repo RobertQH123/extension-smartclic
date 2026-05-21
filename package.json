@@ -1,9 +1,9 @@
 {
   "name": "smartclic-storybook",
   "displayName": "smartclic-devtools",
-  "publisher": "angelzevallos",
+  "publisher": "robergozu",
   "description": "IntelliSense y guías para componentes UI",
-  "version": "0.1.0",
+  "version": "0.1.13",
   "license": "LICENSE.txt",
   "engines": {
     "vscode": "^1.100.0"
@@ -13,6 +13,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onStartupFinished",
     "onLanguage:vue",
     "onLanguage:html",
     "onLanguage:scss"
@@ -32,6 +33,10 @@
       {
         "command": "smartclic.scaffoldComponent",
         "title": "Smartclic: Crear Componente"
+      },
+      {
+        "command": "smartclic.kawaii.welcome",
+        "title": "Smartclic: Saludo kawaii"
       },
       {
         "command": "smartclic.scss.fixAndSave",
@@ -196,6 +201,27 @@
           "type": "boolean",
           "default": false,
           "markdownDescription": "Aplicar autofix SCSS al guardar normalmente (`Ctrl+S`). Si está desactivado, usar el atajo `Ctrl+Alt+S` (modificable en _Atajos de teclado_ → buscar `smartclic.scss.fixAndSave`)."
+        },
+        "smartclic.kawaii.welcome": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mostrar mensaje de bienvenida kawaii al abrir VS Code."
+        },
+        "smartclic.kawaii.errorMessages": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mostrar errores y avisos del linter SCSS con mensajes kawaii (ej. \"Nani?! 😱 ... en línea 42\")."
+        },
+        "smartclic.kawaii.typingEffect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Efecto al escribir: sakura y mini waifus flotando desde el cursor (estilo Power Mode)."
+        },
+        "smartclic.kawaii.typingMode": {
+          "type": "string",
+          "enum": ["mixed"],
+          "default": "mixed",
+          "description": "Al escribir: un emoji anime o una waifu de effects/ al azar (uno solo, se reemplaza cada tecla)."
         }
       }
     }

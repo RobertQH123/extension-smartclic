@@ -24,7 +24,6 @@ function stripAnsi(s: string): string { return s.replace(ANSI_RE, ''); }
 
 const LIB_PKG_NAME = '@erp-mf/erp2-components-vue';
 const LIB_DIR_NAMES = ['erp2-componentes-vue', 'erp2-components-vue'];
-
 const DIR_NAMES: Record<string, string> = {
   'erp-mf-styles':   'erp-mf-estilos',
   'erp-mf-security': 'erp-mf-seguridad',
