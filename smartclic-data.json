@@ -1,0 +1,4571 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "cmp-bar",
+      "description": "Gráfico de barras con soporte para variantes horizontal, vertical y multi-barra vertical. El sub-componente se selecciona automáticamente según el prop `type`.",
+      "attributes": [
+        {
+          "name": "data",
+          "description": "Array de datos a graficar.",
+          "default": "[]"
+        },
+        {
+          "name": "type",
+          "description": "Variante del gráfico de barras.",
+          "values": [
+            {
+              "name": "lineal-bar",
+              "description": "Barras horizontales lineales."
+            },
+            {
+              "name": "lineal-bar-vertical",
+              "description": "Barras verticales."
+            },
+            {
+              "name": "lineal-multi-bar-vertical",
+              "description": "Múltiples series en barras verticales."
+            }
+          ],
+          "default": "lineal-bar"
+        },
+        {
+          "name": "legend",
+          "description": "Texto de leyenda general del gráfico."
+        },
+        {
+          "name": "moneda",
+          "description": "Símbolo de moneda para formatear valores.",
+          "default": "S/"
+        },
+        {
+          "name": "unidad",
+          "description": "Texto de unidad para formatear valores.",
+          "default": "un"
+        },
+        {
+          "name": "legendY",
+          "description": "Etiqueta del eje Y."
+        },
+        {
+          "name": "legendX",
+          "description": "Etiqueta del eje X."
+        },
+        {
+          "name": "show",
+          "description": "Modo de visualización de las barras.",
+          "values": [
+            {
+              "name": "contain",
+              "description": "Las barras se ajustan al espacio disponible."
+            },
+            {
+              "name": "full",
+              "description": "Las barras ocupan el ancho completo."
+            }
+          ],
+          "default": "contain"
+        },
+        {
+          "name": "maxItems",
+          "description": "Número máximo de ítems a mostrar en el gráfico."
+        },
+        {
+          "name": "showCheckboxTotal",
+          "description": "Muestra un checkbox para alternar la visualización de totales.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showCheckbox",
+          "description": "Muestra el checkbox de control del gráfico.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "checkboxText",
+          "description": "Texto del checkbox de totales.",
+          "default": "Mostrar totales"
+        }
+      ]
+    },
+    {
+      "name": "cmp-bitacora-card",
+      "description": "Tarjeta de bitácora/historial: muestra título, fecha, hora, usuario y ícono de acción (creado, actualizado, eliminado, relacionado).",
+      "attributes": [
+        {
+          "name": "title",
+          "description": "Texto del título de la entrada.",
+          "default": "''"
+        },
+        {
+          "name": "date",
+          "description": "Fecha de la entrada (texto formateado).",
+          "default": "''"
+        },
+        {
+          "name": "time",
+          "description": "Hora de la entrada (texto formateado).",
+          "default": "''"
+        },
+        {
+          "name": "user",
+          "description": "Nombre del usuario que realizó la acción.",
+          "default": "''"
+        },
+        {
+          "name": "classLabelDetailsHeader",
+          "description": "Clases CSS para las etiquetas de detalle (fecha, hora, usuario).",
+          "default": "v-p regular"
+        },
+        {
+          "name": "doubleLineTitle",
+          "description": "Permite que el título ocupe dos líneas en lugar de una.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showIcon",
+          "description": "Muestra el ícono de tipo de acción (creado/actualizado/eliminado/relacionado).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showIconStep",
+          "description": "Muestra el ícono de paso dentro del flujo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "iconStepClass",
+          "description": "Clases CSS adicionales para el ícono de paso.",
+          "default": "''"
+        },
+        {
+          "name": "showIconUser",
+          "description": "Muestra el ícono de usuario.",
+          "valueSet": "v",
+          "default": "true"
+        }
+      ]
+    },
+    {
+      "name": "cmp-card-opcion",
+      "description": "Tarjeta de opción clicable con ícono y botón de acción. Emite 'v-click' al presionar el botón.",
+      "attributes": [
+        {
+          "name": "buttonLabel",
+          "description": "Texto del botón de acción dentro de la tarjeta. Prop requerida."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "auto-height-card",
+              "description": "La tarjeta ajusta su alto al contenido (height: auto) en lugar de usar el alto fijo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cmp-carousel-wrapper",
+      "description": "Carrusel de tarjetas con paginación. Slot '#content' (scoped) para cada tarjeta, '#left-arrow' y '#right-arrow' para navegación personalizada.",
+      "attributes": [
+        {
+          "name": "list",
+          "description": "Array de ítems a mostrar en el carrusel. Prop requerida.",
+          "default": "[]"
+        },
+        {
+          "name": "carouselType",
+          "description": "Modo de layout del carrusel.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Carrusel de una sola fila con paginación."
+            },
+            {
+              "name": "multirow",
+              "description": "Carrusel con múltiples filas (usa maxRows)."
+            },
+            {
+              "name": "scroll",
+              "description": "Carrusel con scroll horizontal."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "cardsPerPage",
+          "description": "Número de tarjetas visibles por página.",
+          "default": "3"
+        },
+        {
+          "name": "maxRows",
+          "description": "Número máximo de filas en modo multirow.",
+          "default": "1"
+        },
+        {
+          "name": "gapItems",
+          "description": "Espacio en píxeles entre tarjetas.",
+          "default": "20"
+        },
+        {
+          "name": "goToLastPage",
+          "description": "Navega automáticamente a la última página al montar.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "hideScrollbar",
+          "description": "Oculta la barra de scroll en modo scroll.",
+          "valueSet": "v",
+          "default": "true"
+        }
+      ]
+    },
+    {
+      "name": "cmp-contacto-soporte",
+      "description": "Modal de contacto a soporte con tarjetas para teléfono central, WhatsApp, videollamada y capacitación. Todos los textos se configuran via el prop `displayText`.",
+      "attributes": [
+        {
+          "name": "displayText",
+          "description": "Objeto con todos los textos del componente. Estructura: { title, subtitle, cards: { central: { title, description, phones[] }, whatsapp: { title, description, link }, video: { title, description, link }, training: { title, description, link } } }. Prop requerida."
+        }
+      ]
+    },
+    {
+      "name": "cmp-cropper",
+      "description": "Editor de recorte de imágenes con handles de redimensión. Emite 'emit-crop-image' con el File recortado al confirmar.",
+      "attributes": [
+        {
+          "name": "imageFile",
+          "description": "Archivo de imagen a recortar (File). Prop requerida."
+        },
+        {
+          "name": "typeCropper",
+          "description": "Forma del área de recorte.",
+          "values": [
+            {
+              "name": "rectangle",
+              "description": "Recorte rectangular libre."
+            },
+            {
+              "name": "square",
+              "description": "Recorte cuadrado."
+            },
+            {
+              "name": "circle",
+              "description": "Recorte circular."
+            },
+            {
+              "name": "horizontal_rectangle",
+              "description": "Recorte rectangular horizontal con ratio fijo."
+            }
+          ],
+          "default": "rectangle"
+        },
+        {
+          "name": "aspectRatio",
+          "description": "Relación de aspecto del recorte (ej. 16/9). Solo aplica cuando maintainHorizontalRatio=true.",
+          "default": "1.777 (16/9)"
+        },
+        {
+          "name": "maintainHorizontalRatio",
+          "description": "Bloquea la relación de aspecto horizontal definida en aspectRatio.",
+          "valueSet": "v",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "cmp-donut",
+      "description": "Gráfico de dona. Slot '#text' para contenido central, '#icon' para ícono interior y '#legend' para leyenda personalizada.",
+      "attributes": [
+        {
+          "name": "data",
+          "description": "Array de datos a graficar (segmentos de la dona).",
+          "default": "[]"
+        },
+        {
+          "name": "typeDonut",
+          "description": "Variante de la dona.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Dona circular estándar."
+            },
+            {
+              "name": "horseshoe",
+              "description": "Dona en forma de herradura (arco parcial)."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "percentProgress",
+          "description": "Porcentaje de progreso para la variante horseshoe (0-100).",
+          "default": "0"
+        },
+        {
+          "name": "visiblePercentages",
+          "description": "Muestra los porcentajes sobre cada segmento.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "icon",
+          "description": "Habilita el slot '#icon' para mostrar un ícono en el centro de la dona.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showLegend",
+          "description": "Muestra la leyenda de colores junto a la dona.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "legendItems",
+          "description": "Items de leyenda manual. Estructura: [{ label: string, value: string, color: string }].",
+          "default": "[]"
+        }
+      ]
+    },
+    {
+      "name": "cmp-drag-drop",
+      "description": "Zona de arrastrar y soltar archivos. Slot por defecto recibe { dragDropContent: boolean } para adaptar la UI al estado de arrastre. Emite 'files-dropped' con el FileList al soltar.",
+      "attributes": []
+    },
+    {
+      "name": "cmp-dropdown",
+      "description": "Menú desplegable posicionado automáticamente (arriba/abajo según espacio). Slot '#icon' para el trigger y '#items' para las opciones del menú.",
+      "attributes": [
+        {
+          "name": "icon",
+          "description": "Habilita el slot '#icon' como trigger personalizado. Si es false, usa el trigger por defecto.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "avoidDirection",
+          "description": "Evita el cálculo automático de dirección (siempre abre hacia abajo).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "useTeleport",
+          "description": "Monta el menú en document.body via teleport (útil para evitar overflow/z-index).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Atributo id del elemento raíz."
+        }
+      ]
+    },
+    {
+      "name": "cmp-info-row",
+      "description": "Fila de información editable con soporte para acciones de editar/eliminar. Soporta tres variantes: default, form (campos editables) y small (compacta).",
+      "attributes": [
+        {
+          "name": "values",
+          "description": "Array de celdas de la fila. Estructura: [{ text: string, className?: string }]. Prop requerida.",
+          "default": "[]"
+        },
+        {
+          "name": "type",
+          "description": "Variante visual de la fila.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Fila estándar con texto y acciones."
+            },
+            {
+              "name": "form",
+              "description": "Fila con inputs editables."
+            },
+            {
+              "name": "small",
+              "description": "Fila compacta de menor altura."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "hasAddon",
+          "description": "Muestra una etiqueta adicional (addon) al inicio de la fila.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "addonLabel",
+          "description": "Texto de la etiqueta addon.",
+          "default": "''"
+        },
+        {
+          "name": "showActions",
+          "description": "Muestra los botones de acción (editar/eliminar) al final de la fila.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "onEdit",
+          "description": "Callback ejecutado al presionar el botón de editar."
+        },
+        {
+          "name": "onRemove",
+          "description": "Callback ejecutado al presionar el botón de eliminar."
+        },
+        {
+          "name": "textIcon",
+          "description": "Texto del ícono de acción adicional.",
+          "default": "''"
+        },
+        {
+          "name": "idx",
+          "description": "Atributo id del elemento raíz."
+        }
+      ]
+    },
+    {
+      "name": "cmp-ogive",
+      "description": "Gráfico de líneas (ojiva) con soporte de popup informativo por punto, leyenda y modos de interacción click/hover.",
+      "attributes": [
+        {
+          "name": "data",
+          "description": "Datos del gráfico. Estructura varía según el tipo de ojiva.",
+          "default": "[]"
+        },
+        {
+          "name": "type",
+          "description": "Variante del gráfico de líneas.",
+          "values": [
+            {
+              "name": "lineal-ogive",
+              "description": "Línea única con datos de una serie."
+            },
+            {
+              "name": "multilineal-ogive",
+              "description": "Múltiples líneas con varias series de datos."
+            }
+          ],
+          "default": "lineal-ogive"
+        },
+        {
+          "name": "legendAxisY",
+          "description": "Etiqueta del eje Y."
+        },
+        {
+          "name": "legendAxisX",
+          "description": "Etiqueta del eje X."
+        },
+        {
+          "name": "elementsVisiblePopup",
+          "description": "Número de elementos visibles en el popup antes de mostrar el enlace 'ver más'.",
+          "default": "3"
+        },
+        {
+          "name": "textMorePopup",
+          "description": "Texto del enlace 'ver más' en el popup.",
+          "default": "Almacenes más..."
+        },
+        {
+          "name": "useDateAsLabel",
+          "description": "Usa la fecha como etiqueta del punto en el popup.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "useFreqDateAsLabel",
+          "description": "Usa la fecha de frecuencia como etiqueta.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "popupType",
+          "description": "Estilo visual del popup informativo.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Popup estándar."
+            },
+            {
+              "name": "minimalist",
+              "description": "Popup minimalista con menos información."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "popupVariant",
+          "description": "Variante de contenido del popup.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Popup con información básica."
+            },
+            {
+              "name": "boxed",
+              "description": "Popup con diseño en caja."
+            },
+            {
+              "name": "default-estado",
+              "description": "Popup básico con columna de estado."
+            },
+            {
+              "name": "boxed-estado",
+              "description": "Popup en caja con columna de estado."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "disablePopup",
+          "description": "Desactiva el popup al hacer click/hover sobre los puntos.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "interactionMode",
+          "description": "Modo de activación del popup.",
+          "values": [
+            {
+              "name": "click",
+              "description": "El popup se abre al hacer click en el punto."
+            },
+            {
+              "name": "hover",
+              "description": "El popup se abre al pasar el cursor sobre el punto."
+            }
+          ],
+          "default": "click"
+        },
+        {
+          "name": "fullHeight",
+          "description": "El gráfico ocupa el 100% del alto de su contenedor.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "dateFormat",
+          "description": "Orientación del texto de fecha en el eje X.",
+          "values": [
+            {
+              "name": "vertical",
+              "description": "Fechas en vertical (rotadas 90°)."
+            },
+            {
+              "name": "horizontal",
+              "description": "Fechas en horizontal."
+            }
+          ],
+          "default": "vertical"
+        },
+        {
+          "name": "showPointLabels",
+          "description": "Muestra el valor numérico sobre cada punto del gráfico.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "hideEmptyLegends",
+          "description": "Oculta las leyendas que no tienen datos.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "maxPointsToRender",
+          "description": "Número máximo de puntos a renderizar en el eje X."
+        },
+        {
+          "name": "maxLabelsAxisX",
+          "description": "Máximo de etiquetas visibles en el eje X. Acepta número o { value: number, disableOnXXL?: boolean }."
+        },
+        {
+          "name": "popupHeaderFormatter",
+          "description": "Función personalizada para formatear el encabezado del popup. Firma: (data) => string."
+        },
+        {
+          "name": "popupChildFormatter",
+          "description": "Función personalizada para formatear cada fila del popup. Firma: (item) => string."
+        }
+      ]
+    },
+    {
+      "name": "cmp-option-button",
+      "description": "Botón con menú de opciones desplegable posicionado automáticamente. Slot '#icon' para el trigger y '#options' para las opciones (recibe { openCloseOptions }).",
+      "attributes": [
+        {
+          "name": "text",
+          "description": "Texto del botón trigger."
+        },
+        {
+          "name": "icon",
+          "description": "Tipo de ícono a mostrar en el trigger."
+        },
+        {
+          "name": "textClass",
+          "description": "Clases CSS del texto del botón.",
+          "default": "''"
+        },
+        {
+          "name": "textClassXs",
+          "description": "Clases CSS del texto en resolución móvil."
+        },
+        {
+          "name": "showPreIcon",
+          "description": "Muestra el ícono antes del texto en el trigger.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "preIcon",
+          "description": "Tipo del ícono previo al texto."
+        },
+        {
+          "name": "idx",
+          "description": "Atributo id del elemento raíz."
+        }
+      ]
+    },
+    {
+      "name": "cmp-paginator",
+      "description": "Paginador con navegación por páginas, botones de primera/última página y resumen de ítems. Emite 'evt-send-current-page' al cambiar de página.",
+      "attributes": [
+        {
+          "name": "currentPage",
+          "description": "Página actualmente activa.",
+          "default": "1"
+        },
+        {
+          "name": "itemPerPage",
+          "description": "Cantidad de ítems por página. Prop requerida."
+        },
+        {
+          "name": "totalItems",
+          "description": "Total de ítems en el dataset. Prop requerida."
+        },
+        {
+          "name": "maxPagesDisplayed",
+          "description": "Máximo de botones de página visibles en el paginador.",
+          "default": "5"
+        },
+        {
+          "name": "showLimits",
+          "description": "Muestra los botones de primera y última página.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "idx_next",
+          "description": "Atributo id del botón 'siguiente página'."
+        },
+        {
+          "name": "idx_next_all",
+          "description": "Atributo id del botón 'última página'."
+        },
+        {
+          "name": "idx_prev",
+          "description": "Atributo id del botón 'página anterior'."
+        },
+        {
+          "name": "idx_prev_all",
+          "description": "Atributo id del botón 'primera página'."
+        }
+      ]
+    },
+    {
+      "name": "cmp-plan-card",
+      "description": "Tarjeta de plan de suscripción: muestra nombre, precio, beneficios y período de prueba. El color se toma del objeto `plan`. Emite 'select-plan' al hacer click.",
+      "attributes": [
+        {
+          "name": "plan",
+          "description": "Objeto con los datos del plan. Estructura: { color: string, name: string, regular_price: number, benefits: string[], periodRegular: string, moneda: string, plan_include: string, color_plan_include: string, trial_period: number }. Prop requerida."
+        },
+        {
+          "name": "isSelected",
+          "description": "Marca la tarjeta como seleccionada (resaltado visual).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "isCurrent",
+          "description": "Marca la tarjeta como el plan actualmente contratado.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "customHeader",
+          "description": "Oculta el encabezado estándar del plan para usar un header personalizado via slot.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showYearlyPrice",
+          "description": "Muestra el precio anual calculado bajo el precio mensual.",
+          "valueSet": "v",
+          "default": "true"
+        }
+      ]
+    },
+    {
+      "name": "cmp-preview",
+      "description": "Panel expandible/colapsable arrastrable. Slot por defecto para el contenido del panel. El usuario puede redimensionar el panel arrastrando su borde.",
+      "attributes": []
+    },
+    {
+      "name": "cmp-resultado-operacion",
+      "description": "Modal de resultado de operación: muestra ícono de éxito o error, título, mensaje y botón de cierre. Usar dentro de cmp-overscreen.",
+      "attributes": [
+        {
+          "name": "title",
+          "description": "Título del resultado. Prop requerida."
+        },
+        {
+          "name": "message",
+          "description": "Mensaje descriptivo del resultado. Prop requerida."
+        },
+        {
+          "name": "type",
+          "description": "Tipo de resultado. Determina el ícono y colores mostrados.",
+          "values": [
+            {
+              "name": "success",
+              "description": "Resultado exitoso (ícono verde)."
+            },
+            {
+              "name": "danger",
+              "description": "Resultado de error (ícono rojo)."
+            }
+          ]
+        },
+        {
+          "name": "buttonText",
+          "description": "Texto del botón de confirmación.",
+          "default": "Aceptar"
+        },
+        {
+          "name": "close",
+          "description": "Función callback ejecutada al presionar el botón o cerrar el modal."
+        }
+      ]
+    },
+    {
+      "name": "cmp-select",
+      "description": "Select desplegable con dos variantes visuales: 'color' (con pastilla de color) y 'line' (con indicador de línea). Emite 'update:modelValue'.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "Opción seleccionada actualmente. Estructura: { id, name, color?, ... }.",
+          "default": "{}"
+        },
+        {
+          "name": "options",
+          "description": "Array de opciones disponibles para seleccionar.",
+          "default": "[]"
+        },
+        {
+          "name": "typeSelect",
+          "description": "Variante visual del select.",
+          "values": [
+            {
+              "name": "color",
+              "description": "Muestra una pastilla de color junto a cada opción."
+            },
+            {
+              "name": "line",
+              "description": "Muestra una línea de color a la izquierda de cada opción."
+            }
+          ],
+          "default": "color"
+        },
+        {
+          "name": "text",
+          "description": "Texto placeholder cuando no hay opción seleccionada.",
+          "default": "''"
+        },
+        {
+          "name": "isOpen",
+          "description": "Estado inicial del desplegable (abierto/cerrado).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "online",
+          "description": "Indica si el select está en modo online (activo).",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "avoidDirection",
+          "description": "Evita el cálculo automático de dirección del menú.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Atributo id del elemento raíz."
+        }
+      ]
+    },
+    {
+      "name": "cmp-selectores",
+      "description": "Grupo de botones selectores exclusivos (radio-button visual). Emite 'update:modelValue' con la opción seleccionada.",
+      "attributes": [
+        {
+          "name": "options",
+          "description": "Array de opciones disponibles. Estructura: [{ value: number, description: string }].",
+          "default": "[]"
+        },
+        {
+          "name": "modelValue",
+          "description": "Opción actualmente seleccionada. Estructura: { value: number | null, description: string }.",
+          "default": "{}"
+        },
+        {
+          "name": "idx",
+          "description": "Atributo id del elemento raíz."
+        }
+      ]
+    },
+    {
+      "name": "cmp-slider",
+      "description": "Control deslizante de rango con dos handles (mínimo y máximo). Emite 'update:modelValue' con { leftValue, rightValue } al cambiar.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "Valor actual del rango. Estructura: { leftValue: number, rightValue: number }."
+        },
+        {
+          "name": "min",
+          "description": "Valor mínimo del rango.",
+          "default": "0"
+        },
+        {
+          "name": "max",
+          "description": "Valor máximo del rango.",
+          "default": "600"
+        },
+        {
+          "name": "showInterval",
+          "description": "Muestra marcas de intervalo sobre el slider.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "textFrom",
+          "description": "Etiqueta del extremo izquierdo del slider."
+        },
+        {
+          "name": "textTo",
+          "description": "Etiqueta del extremo derecho del slider."
+        }
+      ]
+    },
+    {
+      "name": "cmp-vertical-steps",
+      "description": "Línea de tiempo vertical de eventos agrupados por fecha. Cada evento muestra fecha, tipo de acción (creado/actualizado/eliminado/relacionado) y la lista de pasos.",
+      "attributes": [
+        {
+          "name": "groupEvents",
+          "description": "Array de grupos de eventos. Estructura: [{ date: string, events: GroupEventView[] }].",
+          "default": "[]"
+        }
+      ]
+    },
+    {
+      "name": "v-button",
+      "description": "Botón con múltiples variantes y estados visuales.",
+      "attributes": [
+        {
+          "name": "typeButton",
+          "description": "Variante visual del botón.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Botón estándar azul. Alto: 30px (XS) → 40px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "success-elipse",
+              "description": "Botón verde redondeado para confirmaciones. Alto: 25px (XS) → 40px (LG) → 40px (XL) → 70px (XXL)."
+            },
+            {
+              "name": "border-elipse",
+              "description": "Borde sólido sin relleno, fondo transparente. Alto: 25px (XS) → 30px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "step",
+              "description": "Botón para pasos de un flujo secuencial. Alto: 35px (XS) → 32px (LG) → 36px (XL) → 46px (XXL)."
+            },
+            {
+              "name": "download",
+              "description": "Botón de descarga de archivos. Alto: 30px (XS) → 30px (LG) → 35px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "download-excel",
+              "description": "Botón de descarga específico para Excel. Alto: 30px (XS) → 30px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "success",
+              "description": "Botón de acción principal de éxito. Alto: 30px (XS) → 30px (LG) → 45px (XL) → 70px (XXL)."
+            },
+            {
+              "name": "color",
+              "description": "Botón de color sólido, personalizable con clases CSS. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 60px (XXL)."
+            },
+            {
+              "name": "item-type",
+              "description": "Botón para selección de tipo de ítem. Alto: 30px (XS) → 25px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "filter-border",
+              "description": "Botón de filtro con borde y estados (default/enabled/disabled). Alto: 25px (XS) → 30px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "color-border",
+              "description": "Botón con borde de color, personalizable con clases CSS. Alto: 35px (XS) → 35px (LG) → 40px (XL) → 70px (XXL)."
+            },
+            {
+              "name": "guide",
+              "description": "Botón de guía o ayuda contextual. Alto: 21px (XS) → 25px (LG) → 30px (XL) → 35px (XXL)."
+            },
+            {
+              "name": "big",
+              "description": "Botón de gran tamaño para acciones destacadas. Alto: 21px (XS) → 20px (LG) → 25px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "add-border",
+              "description": "Botón para agregar ítems, con borde. Alto: 30px (XS) → 25px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "rectangle",
+              "description": "Botón rectangular con colores personalizables. Alto: 35px (XS) → 25px (LG) → 30px (XL) → 35px (XXL)."
+            },
+            {
+              "name": "filter",
+              "description": "Botón de aplicación de filtros. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "filter-calendar",
+              "description": "Botón de filtro para rangos de fecha. Alto: 25px (XS) → 20px (LG) → 20px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "details",
+              "description": "Botón para ver detalles de un elemento. Alto: 15px (XS) → 15px (LG) → 20px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "back",
+              "description": "Botón de navegación hacia atrás. Alto: 25px (XS) → 25px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "border-icon-rectangle",
+              "description": "Botón rectangular con ícono y borde. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "icon-elipse",
+              "description": "Botón circular que muestra solo ícono. Alto: 25px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "select",
+              "description": "Botón con comportamiento de selector desplegable. Alto: 35px (XS) → 20px (LG) → 25px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "preview",
+              "description": "Botón para expandir o previsualizar contenido. Alto: 18px (XS) → 24px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "manual",
+              "description": "Botón para marcado de producto manual. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "print",
+              "description": "Botón de impresión. Alto: 25px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "search",
+              "description": "Botón de búsqueda con ícono. Alto: 30px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "support",
+              "description": "Botón para contactar soporte. Alto: 30px (XS) → 20px (LG) → 25px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "add-rectangle",
+              "description": "Botón rectangular para agregar elementos. Alto: 22px (XS) → 14px (LG) → 16px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "icon-elipse-small",
+              "description": "Versión pequeña del botón circular con ícono. Alto: 30px (XS) → 24px (LG) → 30px (XL) → 33px (XXL)."
+            },
+            {
+              "name": "elipsiss-small",
+              "description": "Botón elíptico pequeño. Alto: 25px (XS) → 19px (LG) → 20px (XL) → 33px (XXL)."
+            },
+            {
+              "name": "premium",
+              "description": "Botón con estilo premium/destacado. Alto: fit-content."
+            },
+            {
+              "name": "rectangle-small",
+              "description": "Botón rectangular de tamaño reducido. Alto: 25px (XS) → 20px (LG) → 25px (XL) → 35px (XXL)."
+            },
+            {
+              "name": "pay",
+              "description": "Botón de acción de pago. Alto: 18px (XS) → 18px (LG) → 20px (XL) → 30px (XXL)."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "typeButtonXs",
+          "description": "Variante visual del botón exclusiva para pantallas móviles (XS). Acepta los mismos valores que typeButton. Sobreescribe typeButton en breakpoint mobile.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Botón estándar azul. Alto: 30px (XS) → 40px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "success-elipse",
+              "description": "Botón verde redondeado para confirmaciones. Alto: 25px (XS) → 40px (LG) → 40px (XL) → 70px (XXL)."
+            },
+            {
+              "name": "border-elipse",
+              "description": "Borde sólido sin relleno, fondo transparente. Alto: 25px (XS) → 30px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "step",
+              "description": "Botón para pasos de un flujo secuencial. Alto: 35px (XS) → 32px (LG) → 36px (XL) → 46px (XXL)."
+            },
+            {
+              "name": "download",
+              "description": "Botón de descarga de archivos. Alto: 30px (XS) → 30px (LG) → 35px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "download-excel",
+              "description": "Botón de descarga específico para Excel. Alto: 30px (XS) → 30px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "success",
+              "description": "Botón de acción principal de éxito. Alto: 30px (XS) → 30px (LG) → 45px (XL) → 70px (XXL)."
+            },
+            {
+              "name": "color",
+              "description": "Botón de color sólido, personalizable con clases CSS. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 60px (XXL)."
+            },
+            {
+              "name": "item-type",
+              "description": "Botón para selección de tipo de ítem. Alto: 30px (XS) → 25px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "filter-border",
+              "description": "Botón de filtro con borde y estados (default/enabled/disabled). Alto: 25px (XS) → 30px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "color-border",
+              "description": "Botón con borde de color, personalizable con clases CSS. Alto: 35px (XS) → 35px (LG) → 40px (XL) → 70px (XXL)."
+            },
+            {
+              "name": "guide",
+              "description": "Botón de guía o ayuda contextual. Alto: 21px (XS) → 25px (LG) → 30px (XL) → 35px (XXL)."
+            },
+            {
+              "name": "big",
+              "description": "Botón de gran tamaño para acciones destacadas. Alto: 21px (XS) → 20px (LG) → 25px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "add-border",
+              "description": "Botón para agregar ítems, con borde. Alto: 30px (XS) → 25px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "rectangle",
+              "description": "Botón rectangular con colores personalizables. Alto: 35px (XS) → 25px (LG) → 30px (XL) → 35px (XXL)."
+            },
+            {
+              "name": "filter",
+              "description": "Botón de aplicación de filtros. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "filter-calendar",
+              "description": "Botón de filtro para rangos de fecha. Alto: 25px (XS) → 20px (LG) → 20px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "details",
+              "description": "Botón para ver detalles de un elemento. Alto: 15px (XS) → 15px (LG) → 20px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "back",
+              "description": "Botón de navegación hacia atrás. Alto: 25px (XS) → 25px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "border-icon-rectangle",
+              "description": "Botón rectangular con ícono y borde. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "icon-elipse",
+              "description": "Botón circular que muestra solo ícono. Alto: 25px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "select",
+              "description": "Botón con comportamiento de selector desplegable. Alto: 35px (XS) → 20px (LG) → 25px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "preview",
+              "description": "Botón para expandir o previsualizar contenido. Alto: 18px (XS) → 24px (LG) → 30px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "manual",
+              "description": "Botón para marcado de producto manual. Alto: 35px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "print",
+              "description": "Botón de impresión. Alto: 25px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "search",
+              "description": "Botón de búsqueda con ícono. Alto: 30px (XS) → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "support",
+              "description": "Botón para contactar soporte. Alto: 30px (XS) → 20px (LG) → 25px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "add-rectangle",
+              "description": "Botón rectangular para agregar elementos. Alto: 22px (XS) → 14px (LG) → 16px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "icon-elipse-small",
+              "description": "Versión pequeña del botón circular con ícono. Alto: 30px (XS) → 24px (LG) → 30px (XL) → 33px (XXL)."
+            },
+            {
+              "name": "elipsiss-small",
+              "description": "Botón elíptico pequeño. Alto: 25px (XS) → 19px (LG) → 20px (XL) → 33px (XXL)."
+            },
+            {
+              "name": "premium",
+              "description": "Botón con estilo premium/destacado. Alto: fit-content."
+            },
+            {
+              "name": "rectangle-small",
+              "description": "Botón rectangular de tamaño reducido. Alto: 25px (XS) → 20px (LG) → 25px (XL) → 35px (XXL)."
+            },
+            {
+              "name": "pay",
+              "description": "Botón de acción de pago. Alto: 18px (XS) → 18px (LG) → 20px (XL) → 30px (XXL)."
+            }
+          ]
+        },
+        {
+          "name": "typeFilter",
+          "description": "Estado visual del botón filter-border. Controla si hay filtros activos o no.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Sin filtros aplicados. El botón muestra estado neutro."
+            },
+            {
+              "name": "enabled",
+              "description": "Filtros activos. El botón se colorea (warning/danger/primary según clases extra)."
+            },
+            {
+              "name": "disabled",
+              "description": "Estado deshabilitado. Fondo blanco con borde primario."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "text",
+          "description": "Texto a mostrar dentro del botón."
+        },
+        {
+          "name": "textXs",
+          "description": "Texto alternativo en dispositivos móviles (XS). Si se omite, usa text."
+        },
+        {
+          "name": "fill",
+          "description": "El botón ocupa el ancho completo del contenedor.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Deshabilita el botón e impide la interacción.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showIcon",
+          "description": "Controla la visibilidad del ícono.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "smallText",
+          "description": "Reduce el tamaño de la fuente del texto.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "ellipsisText",
+          "description": "Aplica ellipsis al texto cuando desborda el contenedor.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "hideIconXS",
+          "description": "Oculta el ícono en dispositivos móviles (XS).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "hideTextXS",
+          "description": "Oculta el texto en dispositivos móviles (XS).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "weight",
+          "description": "Grosor del texto. Solo aplica a typeButton='color'.",
+          "values": [
+            {
+              "name": "bold",
+              "description": "Font-weight 700 (por defecto en color)."
+            },
+            {
+              "name": "semibold",
+              "description": "Font-weight 600."
+            },
+            {
+              "name": "regular",
+              "description": "Font-weight 400."
+            }
+          ]
+        },
+        {
+          "name": "classText",
+          "description": "Clase CSS para el v-text interno. Reemplaza la clase por defecto del botón. Combina tamaño + peso + color, ej: 'v-h5 bold white'.",
+          "values": [
+            {
+              "name": "v-h1",
+              "description": "Título 1. Font: 20px → 44px (LG) → 54px (XL) → 64px (XXL)."
+            },
+            {
+              "name": "v-h2",
+              "description": "Título 2. Font: 17px → 20px (LG) → 24px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-h3",
+              "description": "Título 3. Font: 16px → 24px (LG) → 27px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "v-h4",
+              "description": "Título 4. Font: 15px → 16px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-h5",
+              "description": "Título 5. Font: 14px → 12px (LG) → 14px (XL) → 20px (XXL). El más usado en botones."
+            },
+            {
+              "name": "v-h6",
+              "description": "Título 6. Font: 14px → 12px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "v-p",
+              "description": "Párrafo. Font: 14px → 10px (LG) → 12px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-psmall",
+              "description": "Párrafo pequeño. Font: 11px → 8px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "v-ptiny",
+              "description": "Párrafo tiny. Font: 11px → 14px (LG) → 15px (XL) → 10px (XXL)."
+            },
+            {
+              "name": "v-t4",
+              "description": "Texto tabla 4. Font: 15px → 11px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-t5",
+              "description": "Texto tabla 5. Font: 13px → 12px (LG) → 14px (XL) → 19px (XXL)."
+            },
+            {
+              "name": "v-t6",
+              "description": "Texto tabla 6. Font: 13px → 10px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "light",
+              "description": "Font-weight: 100."
+            },
+            {
+              "name": "semilight",
+              "description": "Font-weight: 200."
+            },
+            {
+              "name": "regular",
+              "description": "Font-weight: 400."
+            },
+            {
+              "name": "semibold",
+              "description": "Font-weight: 600."
+            },
+            {
+              "name": "bold",
+              "description": "Font-weight: 700. El más usado en botones."
+            },
+            {
+              "name": "black",
+              "description": "Font-weight: 900."
+            },
+            {
+              "name": "white",
+              "description": "Color blanco. Muy usado en botones con fondo oscuro."
+            },
+            {
+              "name": "primary",
+              "description": "Color primario (azul por defecto). Es el color base de v-text."
+            },
+            {
+              "name": "success",
+              "description": "Color verde (éxito)."
+            },
+            {
+              "name": "danger",
+              "description": "Color rojo (peligro)."
+            },
+            {
+              "name": "danger-light",
+              "description": "Color rojo claro."
+            },
+            {
+              "name": "orange",
+              "description": "Color naranja."
+            },
+            {
+              "name": "warning",
+              "description": "Color amarillo (advertencia)."
+            },
+            {
+              "name": "info",
+              "description": "Color azul claro (alias de blue-light)."
+            },
+            {
+              "name": "blue-light",
+              "description": "Color azul claro."
+            },
+            {
+              "name": "light-blue",
+              "description": "Color azul muy claro."
+            },
+            {
+              "name": "gray-bold",
+              "description": "Color gris oscuro."
+            },
+            {
+              "name": "gray-dark",
+              "description": "Color gris oscuro variante."
+            },
+            {
+              "name": "gray-regular",
+              "description": "Color gris medio."
+            },
+            {
+              "name": "gray-semilight",
+              "description": "Color gris semitransparente."
+            },
+            {
+              "name": "gray-shadow",
+              "description": "Color gris sombra."
+            },
+            {
+              "name": "purple-dark",
+              "description": "Color púrpura oscuro."
+            },
+            {
+              "name": "red-bold",
+              "description": "Color rojo oscuro."
+            },
+            {
+              "name": "color-inherit",
+              "description": "Hereda el color del elemento padre."
+            },
+            {
+              "name": "uppercase",
+              "description": "Texto en mayúsculas."
+            },
+            {
+              "name": "capitalize",
+              "description": "Primera letra de cada palabra en mayúscula."
+            },
+            {
+              "name": "italic",
+              "description": "Texto en cursiva."
+            },
+            {
+              "name": "ellipsis",
+              "description": "Corta el texto con '...' si desborda en una línea."
+            },
+            {
+              "name": "whitespace-nowrap",
+              "description": "Impide que el texto haga salto de línea."
+            },
+            {
+              "name": "display inline",
+              "description": "Cambia display a inline. Usar ambas clases juntas: 'display inline'."
+            },
+            {
+              "name": "eight-line-height",
+              "description": "Line-height: 0.8."
+            },
+            {
+              "name": "half-line-height",
+              "description": "Line-height: 0.5."
+            },
+            {
+              "name": "fit-line-height",
+              "description": "Line-height: 1."
+            },
+            {
+              "name": "h-fit-content",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "text-align-left",
+              "description": "Texto alineado a la izquierda."
+            },
+            {
+              "name": "text-align-right",
+              "description": "Texto alineado a la derecha."
+            },
+            {
+              "name": "flex-1",
+              "description": "flex: 1 — el texto ocupa el espacio disponible."
+            },
+            {
+              "name": "w-fit",
+              "description": "Width: fit-content."
+            },
+            {
+              "name": "h-fit",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "block-wrap",
+              "description": "Display block con word-wrap para textos largos."
+            },
+            {
+              "name": "exo-2",
+              "description": "Fuente Exo 2 (--font-alt). Combinar con v-h1/v-h2/v-h5/v-p para tamaños específicos."
+            },
+            {
+              "name": "v-plan-negocio-1",
+              "description": "Tamaño especial plan negocio 1. Font: 40px → 24px (LG) → 25px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-2",
+              "description": "Tamaño especial plan negocio 2. Font: 16px → 14px (LG) → 15px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-3",
+              "description": "Tamaño especial plan negocio 3. Font: 16px → 10px (LG) → 10px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-4",
+              "description": "Tamaño especial plan negocio 4. Font: 12px → 9px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "link",
+              "description": "Cursor pointer + subrayado. En v-paragraph emite el evento 'word-click' al hacer click."
+            },
+            {
+              "name": "cursor",
+              "description": "Cursor pointer sin subrayado."
+            },
+            {
+              "name": "white-space-pre-line",
+              "description": "Preserva saltos de línea del texto (white-space: pre-line)."
+            },
+            {
+              "name": "ellipsis-double-line",
+              "description": "Corta el texto a 2 líneas con '...'."
+            },
+            {
+              "name": "elipsis-line",
+              "description": "Corta el texto a 1 línea con '...' (word-break: break-word)."
+            },
+            {
+              "name": "elipsis-line double",
+              "description": "Corta a 2 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "elipsis-line quadruple",
+              "description": "Corta a 4 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "break-line",
+              "description": "Permite ruptura de línea larga (overflow-wrap + hyphens)."
+            },
+            {
+              "name": "break-all",
+              "description": "Rompe el texto en cualquier carácter (word-break: break-all)."
+            },
+            {
+              "name": "whitespace-normal",
+              "description": "Restaura white-space a normal."
+            },
+            {
+              "name": "no-select",
+              "description": "Deshabilita la selección de texto con el cursor."
+            },
+            {
+              "name": "border bottom primary",
+              "description": "Borde inferior en color primario. Usar las tres clases juntas."
+            },
+            {
+              "name": "border bottom blue-light",
+              "description": "Borde inferior en color azul claro. Usar las tres clases juntas."
+            },
+            {
+              "name": "required",
+              "description": "Añade un asterisco rojo (*) después del texto."
+            }
+          ]
+        },
+        {
+          "name": "classTextXs",
+          "description": "Clase CSS para el v-text interno en dispositivos móviles (XS). Misma lógica que classText.",
+          "values": [
+            {
+              "name": "v-h1",
+              "description": "Título 1. Font: 20px → 44px (LG) → 54px (XL) → 64px (XXL)."
+            },
+            {
+              "name": "v-h2",
+              "description": "Título 2. Font: 17px → 20px (LG) → 24px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-h3",
+              "description": "Título 3. Font: 16px → 24px (LG) → 27px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "v-h4",
+              "description": "Título 4. Font: 15px → 16px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-h5",
+              "description": "Título 5. Font: 14px → 12px (LG) → 14px (XL) → 20px (XXL). El más usado en botones."
+            },
+            {
+              "name": "v-h6",
+              "description": "Título 6. Font: 14px → 12px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "v-p",
+              "description": "Párrafo. Font: 14px → 10px (LG) → 12px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-psmall",
+              "description": "Párrafo pequeño. Font: 11px → 8px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "v-ptiny",
+              "description": "Párrafo tiny. Font: 11px → 14px (LG) → 15px (XL) → 10px (XXL)."
+            },
+            {
+              "name": "v-t4",
+              "description": "Texto tabla 4. Font: 15px → 11px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-t5",
+              "description": "Texto tabla 5. Font: 13px → 12px (LG) → 14px (XL) → 19px (XXL)."
+            },
+            {
+              "name": "v-t6",
+              "description": "Texto tabla 6. Font: 13px → 10px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "light",
+              "description": "Font-weight: 100."
+            },
+            {
+              "name": "semilight",
+              "description": "Font-weight: 200."
+            },
+            {
+              "name": "regular",
+              "description": "Font-weight: 400."
+            },
+            {
+              "name": "semibold",
+              "description": "Font-weight: 600."
+            },
+            {
+              "name": "bold",
+              "description": "Font-weight: 700. El más usado en botones."
+            },
+            {
+              "name": "black",
+              "description": "Font-weight: 900."
+            },
+            {
+              "name": "white",
+              "description": "Color blanco. Muy usado en botones con fondo oscuro."
+            },
+            {
+              "name": "primary",
+              "description": "Color primario (azul por defecto). Es el color base de v-text."
+            },
+            {
+              "name": "success",
+              "description": "Color verde (éxito)."
+            },
+            {
+              "name": "danger",
+              "description": "Color rojo (peligro)."
+            },
+            {
+              "name": "danger-light",
+              "description": "Color rojo claro."
+            },
+            {
+              "name": "orange",
+              "description": "Color naranja."
+            },
+            {
+              "name": "warning",
+              "description": "Color amarillo (advertencia)."
+            },
+            {
+              "name": "info",
+              "description": "Color azul claro (alias de blue-light)."
+            },
+            {
+              "name": "blue-light",
+              "description": "Color azul claro."
+            },
+            {
+              "name": "light-blue",
+              "description": "Color azul muy claro."
+            },
+            {
+              "name": "gray-bold",
+              "description": "Color gris oscuro."
+            },
+            {
+              "name": "gray-dark",
+              "description": "Color gris oscuro variante."
+            },
+            {
+              "name": "gray-regular",
+              "description": "Color gris medio."
+            },
+            {
+              "name": "gray-semilight",
+              "description": "Color gris semitransparente."
+            },
+            {
+              "name": "gray-shadow",
+              "description": "Color gris sombra."
+            },
+            {
+              "name": "purple-dark",
+              "description": "Color púrpura oscuro."
+            },
+            {
+              "name": "red-bold",
+              "description": "Color rojo oscuro."
+            },
+            {
+              "name": "color-inherit",
+              "description": "Hereda el color del elemento padre."
+            },
+            {
+              "name": "uppercase",
+              "description": "Texto en mayúsculas."
+            },
+            {
+              "name": "capitalize",
+              "description": "Primera letra de cada palabra en mayúscula."
+            },
+            {
+              "name": "italic",
+              "description": "Texto en cursiva."
+            },
+            {
+              "name": "ellipsis",
+              "description": "Corta el texto con '...' si desborda en una línea."
+            },
+            {
+              "name": "whitespace-nowrap",
+              "description": "Impide que el texto haga salto de línea."
+            },
+            {
+              "name": "display inline",
+              "description": "Cambia display a inline. Usar ambas clases juntas: 'display inline'."
+            },
+            {
+              "name": "eight-line-height",
+              "description": "Line-height: 0.8."
+            },
+            {
+              "name": "half-line-height",
+              "description": "Line-height: 0.5."
+            },
+            {
+              "name": "fit-line-height",
+              "description": "Line-height: 1."
+            },
+            {
+              "name": "h-fit-content",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "text-align-left",
+              "description": "Texto alineado a la izquierda."
+            },
+            {
+              "name": "text-align-right",
+              "description": "Texto alineado a la derecha."
+            },
+            {
+              "name": "flex-1",
+              "description": "flex: 1 — el texto ocupa el espacio disponible."
+            },
+            {
+              "name": "w-fit",
+              "description": "Width: fit-content."
+            },
+            {
+              "name": "h-fit",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "block-wrap",
+              "description": "Display block con word-wrap para textos largos."
+            },
+            {
+              "name": "exo-2",
+              "description": "Fuente Exo 2 (--font-alt). Combinar con v-h1/v-h2/v-h5/v-p para tamaños específicos."
+            },
+            {
+              "name": "v-plan-negocio-1",
+              "description": "Tamaño especial plan negocio 1. Font: 40px → 24px (LG) → 25px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-2",
+              "description": "Tamaño especial plan negocio 2. Font: 16px → 14px (LG) → 15px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-3",
+              "description": "Tamaño especial plan negocio 3. Font: 16px → 10px (LG) → 10px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-4",
+              "description": "Tamaño especial plan negocio 4. Font: 12px → 9px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "link",
+              "description": "Cursor pointer + subrayado. En v-paragraph emite el evento 'word-click' al hacer click."
+            },
+            {
+              "name": "cursor",
+              "description": "Cursor pointer sin subrayado."
+            },
+            {
+              "name": "white-space-pre-line",
+              "description": "Preserva saltos de línea del texto (white-space: pre-line)."
+            },
+            {
+              "name": "ellipsis-double-line",
+              "description": "Corta el texto a 2 líneas con '...'."
+            },
+            {
+              "name": "elipsis-line",
+              "description": "Corta el texto a 1 línea con '...' (word-break: break-word)."
+            },
+            {
+              "name": "elipsis-line double",
+              "description": "Corta a 2 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "elipsis-line quadruple",
+              "description": "Corta a 4 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "break-line",
+              "description": "Permite ruptura de línea larga (overflow-wrap + hyphens)."
+            },
+            {
+              "name": "break-all",
+              "description": "Rompe el texto en cualquier carácter (word-break: break-all)."
+            },
+            {
+              "name": "whitespace-normal",
+              "description": "Restaura white-space a normal."
+            },
+            {
+              "name": "no-select",
+              "description": "Deshabilita la selección de texto con el cursor."
+            },
+            {
+              "name": "border bottom primary",
+              "description": "Borde inferior en color primario. Usar las tres clases juntas."
+            },
+            {
+              "name": "border bottom blue-light",
+              "description": "Borde inferior en color azul claro. Usar las tres clases juntas."
+            },
+            {
+              "name": "required",
+              "description": "Añade un asterisco rojo (*) después del texto."
+            }
+          ]
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "border",
+              "description": "Borde sólido con color primario. Usar con typeButton='border-elipse'."
+            },
+            {
+              "name": "border-fill",
+              "description": "Relleno sólido con color primario. Usar con typeButton='border-elipse'."
+            },
+            {
+              "name": "success",
+              "description": "Color verde (éxito). Combinable con border, border-fill y typeButton='success'."
+            },
+            {
+              "name": "warning",
+              "description": "Color amarillo (advertencia). Combinable con border y border-fill."
+            },
+            {
+              "name": "danger",
+              "description": "Color rojo (peligro). Combinable con border, border-fill y typeButton='success'."
+            },
+            {
+              "name": "danger-light",
+              "description": "Color rojo claro. Combinable con border-fill."
+            },
+            {
+              "name": "info",
+              "description": "Color azul claro. Combinable con border y border-fill."
+            },
+            {
+              "name": "orange",
+              "description": "Color naranja. Combinable con border y border-fill."
+            },
+            {
+              "name": "gray-bold",
+              "description": "Color gris oscuro. Combinable con border y border-fill."
+            },
+            {
+              "name": "purple-dark",
+              "description": "Color púrpura oscuro. Combinable con border y border-fill."
+            },
+            {
+              "name": "blue-light",
+              "description": "Fondo azul claro. Usar con typeButton='color'."
+            },
+            {
+              "name": "ok",
+              "description": "Fondo verde (alias de success). Usar con typeButton='color'."
+            },
+            {
+              "name": "black",
+              "description": "Fondo negro. Usar con typeButton='color'."
+            },
+            {
+              "name": "elipse",
+              "description": "Bordes completamente redondeados. Usar con typeButton='color'."
+            },
+            {
+              "name": "icon-only",
+              "description": "Muestra solo el ícono, oculta el texto. Usar con typeButton='color'."
+            },
+            {
+              "name": "gradient-orange-pink-blue",
+              "description": "Degradado naranja → rosa → azul. Usar con typeButton='color'."
+            },
+            {
+              "name": "gradient-cyan-purple",
+              "description": "Degradado cyan → púrpura. Usar con typeButton='color'."
+            },
+            {
+              "name": "rounded",
+              "description": "Variante circular con ancho fijo 30px en XS. Usar con typeButton='search'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-card",
+      "description": "Contenedor plegable con cabecera, contenido y variantes visuales de borde e icono.",
+      "attributes": [
+        {
+          "name": "type",
+          "description": "Estructura visual del card.",
+          "values": [
+            {
+              "name": "withHeading",
+              "description": "Card con cabecera (slot #title) y cuerpo plegable (slot #content)."
+            },
+            {
+              "name": "normal",
+              "description": "Card sin cabecera, solo cuerpo (slot #content)."
+            }
+          ],
+          "default": "withHeading"
+        },
+        {
+          "name": "handlerItem",
+          "description": "Elemento que dispara el abrir/cerrar. Solo aplica cuando customIcon=false.",
+          "values": [
+            {
+              "name": "header",
+              "description": "Click en toda la cabecera abre/cierra el card."
+            },
+            {
+              "name": "icon",
+              "description": "Solo el icono abre/cierra el card."
+            }
+          ],
+          "default": "header"
+        },
+        {
+          "name": "isOpen",
+          "description": "Estado inicial del card al renderizarse.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "forceOpen",
+          "description": "Fuerza la apertura del card desde el padre de forma reactiva.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "openOnHover",
+          "description": "El card se abre al pasar el mouse y se cierra al salir.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva la interacción. Aplica fondo y borde de estado deshabilitado.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el card como inválido. Aplica fondo rosa y borde rojo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "customIcon",
+          "description": "Habilita el slot #icon-handler para reemplazar el icono de despliegue por contenido personalizado.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "hasPreview",
+          "description": "Muestra el slot #preview cuando el card está cerrado. Desaparece al abrirse (salvo forcePreview).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "forcePreview",
+          "description": "Mantiene visible el slot #preview incluso cuando el card está abierto.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "iconLeft",
+          "description": "Coloca el icono de despliegue a la izquierda de la cabecera en lugar de a la derecha.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "icon",
+          "description": "URL de imagen personalizada para el icono de despliegue."
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "border-none",
+              "description": "Elimina borde y box-shadow del card."
+            },
+            {
+              "name": "border-radius-none",
+              "description": "Elimina el border-radius del card."
+            },
+            {
+              "name": "padding-none",
+              "description": "Elimina el padding interno del card."
+            },
+            {
+              "name": "padding-heading-small",
+              "description": "Reduce el padding de la cabecera (5px vertical)."
+            },
+            {
+              "name": "heading-gray-light",
+              "description": "Fondo gris claro en la cabecera con border-radius."
+            },
+            {
+              "name": "heading-gray-light-hover",
+              "description": "Fondo gris claro en la cabecera solo al hacer hover."
+            },
+            {
+              "name": "heading-border",
+              "description": "Cabecera con fondo gris, border-radius y flecha grande naranja. Combinar con border-none padding-none."
+            },
+            {
+              "name": "handler-icon",
+              "description": "Cursor pointer solo sobre el icono (visual). Usar con handlerItem='icon'."
+            },
+            {
+              "name": "handler-header",
+              "description": "Cursor pointer en toda la cabecera (visual). Usar con handlerItem='header'."
+            },
+            {
+              "name": "icon-orange",
+              "description": "Icono de despliegue con flecha naranja."
+            },
+            {
+              "name": "icon-blue",
+              "description": "Icono de despliegue con flecha azul y tamaño mayor en LG/XXL."
+            },
+            {
+              "name": "border-gray-movile",
+              "description": "Borde gris grueso (3px) visible solo en XS; desaparece en LG+."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-checkbox",
+      "description": "Checkbox con cuatro variantes visuales: default, grid, ellipse y box.",
+      "attributes": [
+        {
+          "name": "typeCheckbox",
+          "description": "Variante visual del checkbox.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Checkbox cuadrado estándar con tick. Tamaño: 20px → 23px (LG) → 25px (XL) → 33px (XXL)."
+            },
+            {
+              "name": "grid",
+              "description": "Checkbox cuadrado en disposición de grilla."
+            },
+            {
+              "name": "ellipse",
+              "description": "Checkbox circular con tick. Tamaño: 30px → 35px (LG) → 45px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "box",
+              "description": "Checkbox en formato caja."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "modelValue",
+          "description": "Valor reactivo del checkbox (v-model). Boolean.",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Texto visible junto al checkbox."
+        },
+        {
+          "name": "labelClass",
+          "description": "Clase CSS para el texto del label (solo typeCheckbox='default'). Acepta string, objeto o array. Combina clases de v-text.",
+          "values": [
+            {
+              "name": "v-h1",
+              "description": "Título 1. Font: 20px → 44px (LG) → 54px (XL) → 64px (XXL)."
+            },
+            {
+              "name": "v-h2",
+              "description": "Título 2. Font: 17px → 20px (LG) → 24px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-h3",
+              "description": "Título 3. Font: 16px → 24px (LG) → 27px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "v-h4",
+              "description": "Título 4. Font: 15px → 16px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-h5",
+              "description": "Título 5. Font: 14px → 12px (LG) → 14px (XL) → 20px (XXL). El más usado en botones."
+            },
+            {
+              "name": "v-h6",
+              "description": "Título 6. Font: 14px → 12px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "v-p",
+              "description": "Párrafo. Font: 14px → 10px (LG) → 12px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-psmall",
+              "description": "Párrafo pequeño. Font: 11px → 8px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "v-ptiny",
+              "description": "Párrafo tiny. Font: 11px → 14px (LG) → 15px (XL) → 10px (XXL)."
+            },
+            {
+              "name": "v-t4",
+              "description": "Texto tabla 4. Font: 15px → 11px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-t5",
+              "description": "Texto tabla 5. Font: 13px → 12px (LG) → 14px (XL) → 19px (XXL)."
+            },
+            {
+              "name": "v-t6",
+              "description": "Texto tabla 6. Font: 13px → 10px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "light",
+              "description": "Font-weight: 100."
+            },
+            {
+              "name": "semilight",
+              "description": "Font-weight: 200."
+            },
+            {
+              "name": "regular",
+              "description": "Font-weight: 400."
+            },
+            {
+              "name": "semibold",
+              "description": "Font-weight: 600."
+            },
+            {
+              "name": "bold",
+              "description": "Font-weight: 700. El más usado en botones."
+            },
+            {
+              "name": "black",
+              "description": "Font-weight: 900."
+            },
+            {
+              "name": "white",
+              "description": "Color blanco. Muy usado en botones con fondo oscuro."
+            },
+            {
+              "name": "primary",
+              "description": "Color primario (azul por defecto). Es el color base de v-text."
+            },
+            {
+              "name": "success",
+              "description": "Color verde (éxito)."
+            },
+            {
+              "name": "danger",
+              "description": "Color rojo (peligro)."
+            },
+            {
+              "name": "danger-light",
+              "description": "Color rojo claro."
+            },
+            {
+              "name": "orange",
+              "description": "Color naranja."
+            },
+            {
+              "name": "warning",
+              "description": "Color amarillo (advertencia)."
+            },
+            {
+              "name": "info",
+              "description": "Color azul claro (alias de blue-light)."
+            },
+            {
+              "name": "blue-light",
+              "description": "Color azul claro."
+            },
+            {
+              "name": "light-blue",
+              "description": "Color azul muy claro."
+            },
+            {
+              "name": "gray-bold",
+              "description": "Color gris oscuro."
+            },
+            {
+              "name": "gray-dark",
+              "description": "Color gris oscuro variante."
+            },
+            {
+              "name": "gray-regular",
+              "description": "Color gris medio."
+            },
+            {
+              "name": "gray-semilight",
+              "description": "Color gris semitransparente."
+            },
+            {
+              "name": "gray-shadow",
+              "description": "Color gris sombra."
+            },
+            {
+              "name": "purple-dark",
+              "description": "Color púrpura oscuro."
+            },
+            {
+              "name": "red-bold",
+              "description": "Color rojo oscuro."
+            },
+            {
+              "name": "color-inherit",
+              "description": "Hereda el color del elemento padre."
+            },
+            {
+              "name": "uppercase",
+              "description": "Texto en mayúsculas."
+            },
+            {
+              "name": "capitalize",
+              "description": "Primera letra de cada palabra en mayúscula."
+            },
+            {
+              "name": "italic",
+              "description": "Texto en cursiva."
+            },
+            {
+              "name": "ellipsis",
+              "description": "Corta el texto con '...' si desborda en una línea."
+            },
+            {
+              "name": "whitespace-nowrap",
+              "description": "Impide que el texto haga salto de línea."
+            },
+            {
+              "name": "display inline",
+              "description": "Cambia display a inline. Usar ambas clases juntas: 'display inline'."
+            },
+            {
+              "name": "eight-line-height",
+              "description": "Line-height: 0.8."
+            },
+            {
+              "name": "half-line-height",
+              "description": "Line-height: 0.5."
+            },
+            {
+              "name": "fit-line-height",
+              "description": "Line-height: 1."
+            },
+            {
+              "name": "h-fit-content",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "text-align-left",
+              "description": "Texto alineado a la izquierda."
+            },
+            {
+              "name": "text-align-right",
+              "description": "Texto alineado a la derecha."
+            },
+            {
+              "name": "flex-1",
+              "description": "flex: 1 — el texto ocupa el espacio disponible."
+            },
+            {
+              "name": "w-fit",
+              "description": "Width: fit-content."
+            },
+            {
+              "name": "h-fit",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "block-wrap",
+              "description": "Display block con word-wrap para textos largos."
+            },
+            {
+              "name": "exo-2",
+              "description": "Fuente Exo 2 (--font-alt). Combinar con v-h1/v-h2/v-h5/v-p para tamaños específicos."
+            },
+            {
+              "name": "v-plan-negocio-1",
+              "description": "Tamaño especial plan negocio 1. Font: 40px → 24px (LG) → 25px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-2",
+              "description": "Tamaño especial plan negocio 2. Font: 16px → 14px (LG) → 15px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-3",
+              "description": "Tamaño especial plan negocio 3. Font: 16px → 10px (LG) → 10px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-4",
+              "description": "Tamaño especial plan negocio 4. Font: 12px → 9px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "link",
+              "description": "Cursor pointer + subrayado. En v-paragraph emite el evento 'word-click' al hacer click."
+            },
+            {
+              "name": "cursor",
+              "description": "Cursor pointer sin subrayado."
+            },
+            {
+              "name": "white-space-pre-line",
+              "description": "Preserva saltos de línea del texto (white-space: pre-line)."
+            },
+            {
+              "name": "ellipsis-double-line",
+              "description": "Corta el texto a 2 líneas con '...'."
+            },
+            {
+              "name": "elipsis-line",
+              "description": "Corta el texto a 1 línea con '...' (word-break: break-word)."
+            },
+            {
+              "name": "elipsis-line double",
+              "description": "Corta a 2 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "elipsis-line quadruple",
+              "description": "Corta a 4 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "break-line",
+              "description": "Permite ruptura de línea larga (overflow-wrap + hyphens)."
+            },
+            {
+              "name": "break-all",
+              "description": "Rompe el texto en cualquier carácter (word-break: break-all)."
+            },
+            {
+              "name": "whitespace-normal",
+              "description": "Restaura white-space a normal."
+            },
+            {
+              "name": "no-select",
+              "description": "Deshabilita la selección de texto con el cursor."
+            },
+            {
+              "name": "border bottom primary",
+              "description": "Borde inferior en color primario. Usar las tres clases juntas."
+            },
+            {
+              "name": "border bottom blue-light",
+              "description": "Borde inferior en color azul claro. Usar las tres clases juntas."
+            },
+            {
+              "name": "required",
+              "description": "Añade un asterisco rojo (*) después del texto."
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el checkbox e impide la interacción.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "unmarkable",
+          "description": "Permite desmarcar el checkbox al volver a hacer click (toggle). Por defecto el checkbox solo se puede marcar.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "vertical",
+              "description": "Apila el checkbox y el label en columna (flex-direction: column). Solo typeCheckbox='default'."
+            },
+            {
+              "name": "inline-content",
+              "description": "Permite que el label haga salto de línea natural (white-space: normal). Solo typeCheckbox='default'."
+            },
+            {
+              "name": "italic",
+              "description": "Texto del label en cursiva. Solo typeCheckbox='default'."
+            },
+            {
+              "name": "is-circle",
+              "description": "Bordes completamente redondeados en el cuadro del checkbox. Solo typeCheckbox='default'."
+            },
+            {
+              "name": "is-solid",
+              "description": "Fondo sólido siempre visible en el cuadro. Combinar con is-primary/success/info/warning/danger. Solo typeCheckbox='default'."
+            },
+            {
+              "name": "is-outlined",
+              "description": "Borde de color al estar marcado, fondo blanco. Combinar con is-primary/success/info/warning/danger. Solo typeCheckbox='default'."
+            },
+            {
+              "name": "is-primary",
+              "description": "Color primario (azul). Combinar con is-solid, is-outlined o usar solo en typeCheckbox='ellipse'."
+            },
+            {
+              "name": "is-success",
+              "description": "Color verde (éxito). Combinar con is-solid, is-outlined o usar solo en typeCheckbox='ellipse'."
+            },
+            {
+              "name": "is-info",
+              "description": "Color azul claro. Combinar con is-solid, is-outlined o usar solo en typeCheckbox='ellipse'."
+            },
+            {
+              "name": "is-warning",
+              "description": "Color amarillo (advertencia). Combinar con is-solid, is-outlined o usar solo en typeCheckbox='ellipse'."
+            },
+            {
+              "name": "is-danger",
+              "description": "Color rojo (peligro). Combinar con is-solid, is-outlined o usar solo en typeCheckbox='ellipse'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-datepicker",
+      "description": "Selector de fecha con tres variantes: default (fecha única), range (rango) y custom (rango con atajos rápidos).",
+      "attributes": [
+        {
+          "name": "type",
+          "description": "Variante del datepicker a renderizar.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Selector de fecha única. modelValue es un objeto Date."
+            },
+            {
+              "name": "range",
+              "description": "Selector de rango de fechas. modelValue es { start: Date, end: Date }."
+            },
+            {
+              "name": "custom",
+              "description": "Rango con atajos rápidos de fecha. modelValue es { start: Date, end: Date }."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "modelValue",
+          "description": "Valor reactivo (v-model). Date para type='default'; { start: Date | null, end: Date | null } para type='range' y 'custom'."
+        },
+        {
+          "name": "format",
+          "description": "Formato de visualización de la fecha. Ej: 'dd/MM/yyyy' o 'dd de cada mes (inicio de MMMM)'.",
+          "default": "dd/MM/yyyy"
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el datepicker como inválido con borde rojo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el datepicker e impide la interacción. Solo aplica a type='default'.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "required",
+          "description": "Marca la fecha como requerida con indicador visual. Solo aplica a type='default'.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "min",
+          "description": "Fecha mínima seleccionable (Date). Solo aplica a type='default'."
+        },
+        {
+          "name": "max",
+          "description": "Fecha máxima seleccionable (Date). Solo aplica a type='default'."
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "small",
+              "description": "Tamaño reducido. Aplica a type='default' y type='range'."
+            },
+            {
+              "name": "form",
+              "description": "Estilo para formularios; el dropdown se alinea al centro. Aplica a type='range' y type='custom'."
+            },
+            {
+              "name": "left",
+              "description": "Posiciona el dropdown hacia la izquierda. Aplica a type='range' y type='custom'."
+            },
+            {
+              "name": "right",
+              "description": "Posiciona el dropdown hacia la derecha. Aplica a type='range' y type='custom'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-grid",
+      "description": "Tabla responsive con soporte de modo móvil vertical (expandir filas), selección múltiple por long-press y altura máxima configurable.",
+      "attributes": [
+        {
+          "name": "spacing",
+          "description": "Aplica border-spacing entre filas (border-collapse: separate).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "maxRows",
+          "description": "Número máximo de filas visibles. El contenedor padre recibe max-height y overflow-y automáticamente."
+        },
+        {
+          "name": "movilVertical",
+          "description": "Activa el modo móvil: en pantallas pequeñas las filas se pueden expandir para ver el detalle verticalmente.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disableLongPress",
+          "description": "Desactiva el gesto de long-press para seleccionar filas en modo móvil.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabledLongPressItems",
+          "description": "Array de índices de filas en las que el long-press está deshabilitado individualmente.",
+          "default": "[]"
+        },
+        {
+          "name": "disableItemExpand",
+          "description": "Desactiva la expansión de filas en modo móvil (oculta las flechas).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "lockItemExpand",
+          "description": "Bloquea temporalmente la expansión/contracción de filas sin ocultar las flechas.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "modelValue",
+          "description": "Array de índices de filas seleccionadas (v-model). Se actualiza tras un long-press.",
+          "default": "[]"
+        },
+        {
+          "name": "expandedItemIndex",
+          "description": "Índice de la fila actualmente expandida (v-model). null = ninguna expandida.",
+          "default": "null"
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "height-full",
+              "description": "La tabla ocupa el 100% de la altura del contenedor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-groupselect",
+      "description": "Select con opciones agrupadas por categoría. Las opciones se pasan como array de grupos con { groupName, options: [{ value, description }] }.",
+      "attributes": [
+        {
+          "name": "typeElement",
+          "description": "Variante visual del groupselect.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Groupselect estándar con ítems de altura normal."
+            },
+            {
+              "name": "small",
+              "description": "Variante compacta con ítems de menor altura."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "subTypeElement",
+          "description": "Subtipo del groupselect. Actualmente solo 'default'.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Subtipo estándar."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "options",
+          "description": "Array de grupos de opciones. Estructura: [{ groupName: string, options: [{ value, description }] }]."
+        },
+        {
+          "name": "modelValue",
+          "description": "Valor reactivo seleccionado (v-model). Puede ser string, number, array u object."
+        },
+        {
+          "name": "placeholder",
+          "description": "Texto mostrado cuando no hay ningún valor seleccionado.",
+          "default": "Seleccionar"
+        },
+        {
+          "name": "withFilter",
+          "description": "Habilita un input de búsqueda dentro del dropdown para filtrar opciones.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showMessageFilter",
+          "description": "Muestra un mensaje informativo al final de la lista de opciones.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "messageFilter",
+          "description": "Texto del mensaje que se muestra al final del select (requiere showMessageFilter=true).",
+          "default": ""
+        },
+        {
+          "name": "separateOptionFilter",
+          "description": "Al seleccionar una opción, muestra el texto separado por puntos según charSplitSeparator.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "charSplitSeparator",
+          "description": "Caracter usado para separar la descripción al mostrar la opción seleccionada.",
+          "default": "-"
+        },
+        {
+          "name": "showExample",
+          "description": "Muestra un ejemplo adicional junto a cada opción al seleccionarla.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "autoClean",
+          "description": "Limpia el input de filtro cuando se elimina el valor seleccionado. Funciona junto a withFilter.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "openUp",
+          "description": "Despliega el dropdown hacia arriba en lugar de hacia abajo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el componente como inválido con estilo de error.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el componente e impide la interacción.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "w-full",
+              "description": "El componente ocupa el 100% del ancho del contenedor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-icon",
+      "description": "Ícono SVG/imagen seleccionable por tipo. Cada tipo renderiza un sub-componente específico.",
+      "attributes": [
+        {
+          "name": "typeIcon",
+          "description": "Tipo de ícono a mostrar.",
+          "values": [
+            {
+              "name": "accept",
+              "description": "Ícono de aceptar / check."
+            },
+            {
+              "name": "cancel",
+              "description": "Ícono de cancelar / X."
+            },
+            {
+              "name": "dots",
+              "description": "Ícono de tres puntos (menú)."
+            },
+            {
+              "name": "head-plus",
+              "description": "Ícono de persona con +."
+            },
+            {
+              "name": "add",
+              "description": "Ícono de agregar / +."
+            },
+            {
+              "name": "edit",
+              "description": "Ícono de editar / lápiz."
+            },
+            {
+              "name": "delete",
+              "description": "Ícono de eliminar / papelera."
+            },
+            {
+              "name": "back",
+              "description": "Ícono de volver / flecha izquierda."
+            },
+            {
+              "name": "user",
+              "description": "Ícono de usuario / persona."
+            },
+            {
+              "name": "upload",
+              "description": "Ícono de subir archivo."
+            },
+            {
+              "name": "email",
+              "description": "Ícono de correo electrónico."
+            },
+            {
+              "name": "ticket",
+              "description": "Ícono de ticket / comprobante."
+            },
+            {
+              "name": "link",
+              "description": "Ícono de enlace."
+            },
+            {
+              "name": "whatsapp",
+              "description": "Ícono de WhatsApp."
+            },
+            {
+              "name": "file-pdf",
+              "description": "Ícono de archivo PDF."
+            },
+            {
+              "name": "file-xml",
+              "description": "Ícono de archivo XML."
+            },
+            {
+              "name": "file-cdr",
+              "description": "Ícono de archivo CDR."
+            },
+            {
+              "name": "file-a4",
+              "description": "Ícono de hoja A4."
+            },
+            {
+              "name": "file-copy",
+              "description": "Ícono de copiar archivo."
+            },
+            {
+              "name": "file-horizontal-ticket",
+              "description": "Ícono de ticket horizontal."
+            },
+            {
+              "name": "file-sunat",
+              "description": "Ícono de documento SUNAT."
+            },
+            {
+              "name": "file-voucher",
+              "description": "Ícono de voucher / comprobante."
+            }
+          ],
+          "default": "accept"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        }
+      ]
+    },
+    {
+      "name": "v-icon-robot",
+      "description": "Ilustración de robot con distintos estados de ánimo/contexto. Se usa en pantallas vacías o de feedback.",
+      "attributes": [
+        {
+          "name": "typeRobot",
+          "description": "Variante de robot a mostrar.",
+          "values": [
+            {
+              "name": "happy-success",
+              "description": "Robot feliz (estado de éxito)."
+            },
+            {
+              "name": "smile-info",
+              "description": "Robot sonriente (estado informativo)."
+            },
+            {
+              "name": "board-info",
+              "description": "Robot con pizarrón (información detallada)."
+            },
+            {
+              "name": "worried-error",
+              "description": "Robot preocupado (estado de error)."
+            },
+            {
+              "name": "message-info",
+              "description": "Robot con mensaje (notificación informativa)."
+            },
+            {
+              "name": "excellent-success",
+              "description": "Robot entusiasmado (éxito destacado)."
+            },
+            {
+              "name": "products",
+              "description": "Robot con ícono de productos."
+            },
+            {
+              "name": "services",
+              "description": "Robot con ícono de servicios."
+            },
+            {
+              "name": "store",
+              "description": "Robot con ícono de tienda."
+            },
+            {
+              "name": "recipes",
+              "description": "Robot con ícono de recetas."
+            },
+            {
+              "name": "combos",
+              "description": "Robot con ícono de combos."
+            },
+            {
+              "name": "list-products",
+              "description": "Robot con ícono de lista de productos."
+            }
+          ],
+          "default": "happy-success"
+        }
+      ]
+    },
+    {
+      "name": "v-input",
+      "description": "Input de texto con tres variantes de tamaño, addon derecho (botón/icono), preaddon izquierdo y soporte de dropdown.",
+      "attributes": [
+        {
+          "name": "typeElement",
+          "description": "Variante visual del input.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Input estándar. Alto: 35px → 30px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "form",
+              "description": "Input para formularios, altura más compacta en XXL. Alto: 35px → 30px (LG) → 35px (XL) → 45px (XXL)."
+            },
+            {
+              "name": "small",
+              "description": "Input compacto. Alto: 30px → 20px (LG) → 25px (XL) → 35px (XXL)."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "typeElementXs",
+          "description": "Variante visual del input exclusiva para pantallas móviles (XS). Sobreescribe typeElement en XS. Acepta los mismos valores que typeElement.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Input estándar en XS."
+            },
+            {
+              "name": "form",
+              "description": "Input form en XS."
+            },
+            {
+              "name": "small",
+              "description": "Input compacto en XS."
+            }
+          ]
+        },
+        {
+          "name": "subTypeElement",
+          "description": "Subtipo de estilo del input. Solo aplica a typeElement='small'.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Estilo por defecto."
+            },
+            {
+              "name": "normal",
+              "description": "Fuente en tamaños estándar (12px LG, 14px XL, 18px XXL) sin cursiva."
+            },
+            {
+              "name": "regular",
+              "description": "Fuente tamaño normal con cursiva aplicada."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "typeInput",
+          "description": "Comportamiento del campo de entrada.",
+          "values": [
+            {
+              "name": "input",
+              "description": "Campo de texto estándar."
+            },
+            {
+              "name": "password",
+              "description": "Campo de contraseña con botón toggle para mostrar/ocultar."
+            },
+            {
+              "name": "grid",
+              "description": "Campo de texto con estilo compacto para tablas (17px LG → 22px XL → 33px XXL)."
+            },
+            {
+              "name": "lg",
+              "description": "Campo de texto con estilo intermedio (20px LG → 25px XL → 35px XXL)."
+            }
+          ],
+          "default": "input"
+        },
+        {
+          "name": "typeAddon",
+          "description": "Tipo de elemento complementario que se muestra a la derecha del input.",
+          "values": [
+            {
+              "name": "password",
+              "description": "Ícono ojo para mostrar/ocultar contraseña. Usar con typeInput='password'."
+            },
+            {
+              "name": "button-text",
+              "description": "Botón verde con texto (messageAddon). Disponible en typeElement='default'."
+            },
+            {
+              "name": "button-search",
+              "description": "Botón azul oscuro con ícono de búsqueda."
+            },
+            {
+              "name": "button-search-simple",
+              "description": "Ícono de búsqueda simple (sin fondo de botón). Disponible en typeElement='default'."
+            },
+            {
+              "name": "button-search-simple-small",
+              "description": "Ícono de búsqueda gris pequeño. Disponible en typeElement='default'."
+            },
+            {
+              "name": "button-simple-search",
+              "description": "Botón de búsqueda simple. Disponible en typeElement='form'."
+            },
+            {
+              "name": "button-gray-search",
+              "description": "Botón de búsqueda gris. Disponible en typeElement='form'."
+            },
+            {
+              "name": "button-to-link",
+              "description": "Alterna entre ícono de búsqueda y texto link (addonIsLink). Disponible en typeElement='default'."
+            },
+            {
+              "name": "select",
+              "description": "Dropdown trigger con texto (placeholderSelect) y flecha. Requiere selectDropdown=true."
+            }
+          ]
+        },
+        {
+          "name": "typeAddonXs",
+          "description": "Tipo de addon exclusivo para pantallas móviles (XS). Sobreescribe typeAddon en XS. Acepta los mismos valores que typeAddon."
+        },
+        {
+          "name": "typePreaddon",
+          "description": "Elemento complementario que se muestra a la izquierda del input. Solo aplica a typeElement='form'.",
+          "values": [
+            {
+              "name": "select",
+              "description": "Selector desplegable antes del input."
+            },
+            {
+              "name": "button",
+              "description": "Botón antes del input con simbolButton como etiqueta."
+            },
+            {
+              "name": "icon",
+              "description": "Ícono antes del input."
+            }
+          ]
+        },
+        {
+          "name": "messageAddon",
+          "description": "Texto del addon. Usado cuando typeAddon='button-text' (etiqueta del botón) o typeAddon='button-to-link' (texto del enlace)."
+        },
+        {
+          "name": "placeholderSelect",
+          "description": "Texto del addon tipo select. Usado cuando typeAddon='select' o typePreaddon='select'."
+        },
+        {
+          "name": "symbolButton",
+          "description": "Símbolo o etiqueta del preaddon de tipo botón. Usado cuando typePreaddon='button'."
+        },
+        {
+          "name": "placeholder",
+          "description": "Placeholder del campo de texto.",
+          "default": ""
+        },
+        {
+          "name": "legend",
+          "description": "Etiqueta superior del input (label flotante).",
+          "default": ""
+        },
+        {
+          "name": "icon",
+          "description": "URL del ícono que se muestra antes del campo de texto (dentro del fieldset)."
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el input como inválido con borde rojo y animación de sacudida.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el input con fondo gris e impide la escritura.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "borderless",
+          "description": "Elimina el borde del fieldset. Solo aplica a typeElement='default'.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "dropdown",
+          "description": "Habilita un slot de dropdown debajo del input que se abre al enfocar.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "selectDropdown",
+          "description": "Habilita el dropdown pero se abre/cierra con el addon de tipo select (toggle manual).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "keepOpenDropdown",
+          "description": "Evita que el dropdown se cierre al hacer click dentro de él.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "addonIsLink",
+          "description": "Convierte el addon 'button-to-link' de ícono a texto enlace.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "addonUnpointer",
+          "description": "Desactiva el cursor pointer del addon (lo hace no clickeable visualmente).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "onlyNumbers",
+          "description": "El input solo acepta caracteres numéricos.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "onlyIntegers",
+          "description": "El input solo acepta números enteros (sin decimales).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "negative",
+          "description": "Permite ingresar números negativos (prefijo -).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "decimalPlaces",
+          "description": "Número máximo de decimales permitidos cuando onlyNumbers=true.",
+          "default": "1"
+        },
+        {
+          "name": "maxCharacters",
+          "description": "Cantidad máxima de caracteres permitidos. 0 significa sin límite.",
+          "default": "0"
+        },
+        {
+          "name": "isNumericDashAllowed",
+          "description": "El input solo acepta caracteres alfanuméricos y guiones.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showInvalidIcon",
+          "description": "Muestra el ícono de error en el addon cuando invalid=true.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "positionTableDropdown",
+          "description": "Ajuste especial de posición del dropdown para inputs dentro de tablas.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "triggerSize",
+          "description": "Número que al cambiar fuerza el recálculo de la altura del dropdown.",
+          "default": "0"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "rounded",
+              "description": "Borde más redondeado en el fieldset (border-radius: 20px). Solo typeElement='default'."
+            },
+            {
+              "name": "gray-shadow",
+              "description": "Borde con color gris sombra en lugar del gris estándar. Solo typeElement='default'."
+            },
+            {
+              "name": "borderless",
+              "description": "Elimina el borde del fieldset. Solo typeElement='default'. (Alternativa CSS a la prop borderless.)"
+            },
+            {
+              "name": "italic",
+              "description": "Texto del input en cursiva. Solo typeElement='default'."
+            },
+            {
+              "name": "gray-search-border",
+              "description": "Borde gris sombra en el contenedor del input. Solo typeElement='form'."
+            },
+            {
+              "name": "no-container-type",
+              "description": "Desactiva el container-type del wrapper, evitando que afecte queries de contenedor padre. Solo typeElement='form'."
+            },
+            {
+              "name": "open-up",
+              "description": "El dropdown se despliega hacia arriba. Requiere :dropdown='true'."
+            },
+            {
+              "name": "options-fit-content",
+              "description": "El dropdown adopta el ancho de su contenido en lugar del 100%. Requiere :dropdown='true'."
+            },
+            {
+              "name": "left",
+              "description": "Combinado con options-fit-content, alinea el dropdown a la derecha del trigger (se expande hacia la izquierda)."
+            },
+            {
+              "name": "center",
+              "description": "Combinado con options-fit-content, centra el dropdown respecto al trigger."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-input-message",
+      "description": "Mensaje de validación para inputs. Se muestra bajo el campo con fondo rosa (error) o verde (éxito).",
+      "attributes": [
+        {
+          "name": "type",
+          "description": "Variante visual del mensaje.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Mensaje con bordes redondeados tipo píldora. Alto: 20px → 18px (LG) → 30px (XL) → 38px (XXL)."
+            },
+            {
+              "name": "small",
+              "description": "Mensaje más compacto con border-radius rectangular. Alto: 21px → 19px (LG) → 25px (XL) → 31px (XXL)."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "text",
+          "description": "Texto del mensaje de validación."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "success",
+              "description": "Fondo verde claro (success-super-light) en lugar del rosa. Solo aplica a type='small'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-label",
+      "description": "Etiqueta de estado/categoría con tres variantes de tamaño. Fondo azul-extra-light por defecto; admite clases de color.",
+      "attributes": [
+        {
+          "name": "type",
+          "description": "Variante visual del label.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Píldora redondeada. Alto mínimo: 20px XS/LG → 25px XL → 32px XXL."
+            },
+            {
+              "name": "small",
+              "description": "Compacta con border-radius menor. Alto mínimo: — XS → 12px LG → 13px XL → 15px XXL."
+            },
+            {
+              "name": "large",
+              "description": "Grande con border-radius adaptativo. Alto mínimo: — XS → 12px LG → 16px XL → 23px XXL."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "text",
+          "description": "Texto del label."
+        },
+        {
+          "name": "classText",
+          "description": "Clases CSS aplicadas al texto en resoluciones LG+."
+        },
+        {
+          "name": "classTextXs",
+          "description": "Clases CSS aplicadas al texto en resolución móvil (XS)."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "blue-super-light",
+              "description": "Fondo azul super claro. Aplica a type='small' y type='large'."
+            },
+            {
+              "name": "danger",
+              "description": "Fondo rojo (danger). Aplica a type='small' y type='large'."
+            },
+            {
+              "name": "blue-mega-light",
+              "description": "Fondo azul mega claro. Solo aplica a type='large'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-modal",
+      "description": "Contenedor de modal con animación de apertura/cierre, botón de cierre y slot de contenido. Se usa dentro de cmp-overscreen o cmp-overscreen-up.",
+      "attributes": [
+        {
+          "name": "showClose",
+          "description": "Muestra el botón de cierre (X) en la esquina superior derecha.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "hideCloseOnSmall",
+          "description": "Oculta el botón de cierre en pantallas móviles (XS). Lo muestra a partir de LG.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx_close",
+          "description": "Atributo id del botón de cierre."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "base",
+              "description": "Elimina el padding vertical del modal (padding: 0)."
+            },
+            {
+              "name": "fill",
+              "description": "El modal ocupa el 100% de alto y ancho del contenedor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-modal-header",
+      "description": "Encabezado estándar para modales: ícono decorativo, título y subtítulo. Cambia textos automáticamente en móvil si se proveen versiones XS.",
+      "attributes": [
+        {
+          "name": "title",
+          "description": "Texto del título principal (estilo v-h2 bold)."
+        },
+        {
+          "name": "subtitle",
+          "description": "Texto del subtítulo (estilo configurable con classSubTitle)."
+        },
+        {
+          "name": "classSubTitle",
+          "description": "Clases CSS aplicadas al subtítulo.",
+          "default": "v-h4 regular"
+        },
+        {
+          "name": "titleTextXs",
+          "description": "Texto alternativo del título en resolución móvil. Si se provee, reemplaza a title en XS."
+        },
+        {
+          "name": "subtitleTextXs",
+          "description": "Texto alternativo del subtítulo en resolución móvil. Si se provee, reemplaza a subtitle en XS."
+        }
+      ]
+    },
+    {
+      "name": "v-multiselect",
+      "description": "Selector múltiple con checkboxes. Soporta agrupación, filtro de búsqueda y cinco variantes visuales.",
+      "attributes": [
+        {
+          "name": "typeMultiselect",
+          "description": "Variante visual del multiselect.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Multiselect estándar. Header: 35px XS → 55px XXL."
+            },
+            {
+              "name": "small",
+              "description": "Variante compacta. Header: 30px XS → 20px LG → 25px XL → 35px XXL."
+            },
+            {
+              "name": "form",
+              "description": "Para formularios. Header: 35px XS → 30px LG → 35px XL → 45px XXL."
+            },
+            {
+              "name": "color",
+              "description": "Header sin borde con fondo de color blanco y flecha blanca. Diseñado para fondos de color."
+            },
+            {
+              "name": "dropdown",
+              "description": "Variante con soporte de sub-opciones expandibles y observaciones por opción."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "modelValue",
+          "description": "Array de valores seleccionados (v-model)."
+        },
+        {
+          "name": "options",
+          "description": "Array de opciones disponibles. Estructura plana: [{ value, description }]. Agrupada: [{ groupName, options: [...] }]."
+        },
+        {
+          "name": "optionKey",
+          "description": "Nombre del campo de la opción que se usa como valor único (key). Ej: 'value'."
+        },
+        {
+          "name": "labelKey",
+          "description": "Nombre del campo de la opción que se muestra como texto. Ej: 'description'."
+        },
+        {
+          "name": "groupMultiselect",
+          "description": "Activa el modo agrupado. Las opciones deben tener estructura { groupName, options }.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "optionsGroupKey",
+          "description": "Nombre del campo que contiene el array de opciones dentro de cada grupo. Requiere groupMultiselect=true."
+        },
+        {
+          "name": "groupLabelKey",
+          "description": "Nombre del campo que se muestra como cabecera del grupo. Requiere groupMultiselect=true."
+        },
+        {
+          "name": "groupValueKey",
+          "description": "Nombre del campo usado como key del grupo. Requiere groupMultiselect=true."
+        },
+        {
+          "name": "placeholder",
+          "description": "Texto mostrado cuando no hay ningún valor seleccionado."
+        },
+        {
+          "name": "includeAll",
+          "description": "Agrega una opción 'Todos' que selecciona/deselecciona todas las opciones.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "withFilter",
+          "description": "Habilita un input de búsqueda dentro del dropdown para filtrar opciones.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "filterText",
+          "description": "Texto de búsqueda controlado externamente para el filtro (v-model del filtro)."
+        },
+        {
+          "name": "showMessageFilter",
+          "description": "Muestra un mensaje informativo al final de la lista de opciones.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "messageFilter",
+          "description": "Texto del mensaje al final del dropdown (requiere showMessageFilter=true).",
+          "default": ""
+        },
+        {
+          "name": "plainText",
+          "description": "Texto estático a mostrar en el header en lugar del resumen de selección."
+        },
+        {
+          "name": "smallSizeHeader",
+          "description": "Reduce la altura del header al tamaño compacto. Solo aplica a typeMultiselect='dropdown'.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el componente como inválido con borde rojo y animación.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        }
+      ]
+    },
+    {
+      "name": "v-paragraph",
+      "description": "Párrafo compuesto de palabras independientes, cada una renderizada como v-text inline. Asignar class 'link' a una palabra la hace clickeable y emite 'word-click' con { word, index }.",
+      "attributes": [
+        {
+          "name": "words",
+          "description": "Array de palabras. Estructura: [{ text: string, class: string }]. El campo class acepta cualquier combinación de clases de v-text (tamaño, peso, color, 'link', etc.).",
+          "default": "[]"
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "half-line-height",
+              "description": "Line-height del párrafo: 0.5."
+            },
+            {
+              "name": "fit-line-height",
+              "description": "Line-height del párrafo: 1."
+            },
+            {
+              "name": "text-align justify",
+              "description": "Texto justificado. Usar ambas clases juntas."
+            },
+            {
+              "name": "text-align left",
+              "description": "Texto alineado a la izquierda. Usar ambas clases juntas."
+            },
+            {
+              "name": "text-align center",
+              "description": "Texto centrado. Usar ambas clases juntas."
+            },
+            {
+              "name": "text-align right",
+              "description": "Texto alineado a la derecha. Usar ambas clases juntas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-popup",
+      "description": "Tooltip/popover basado en Tippy.js. Slot '#element' para el trigger y '#content-popup' para el contenido flotante.",
+      "attributes": [
+        {
+          "name": "triggerType",
+          "description": "Evento que dispara el popup.",
+          "values": [
+            {
+              "name": "click",
+              "description": "Se abre al hacer click."
+            },
+            {
+              "name": "mouseenter",
+              "description": "Se abre al pasar el cursor (hover)."
+            },
+            {
+              "name": "focus",
+              "description": "Se abre al enfocar el trigger."
+            },
+            {
+              "name": "manual",
+              "description": "Control manual via referencia."
+            }
+          ],
+          "default": "click"
+        },
+        {
+          "name": "arrowRef",
+          "description": "Muestra la flecha del tooltip.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "close",
+          "description": "Muestra el botón de cierre (X) dentro del popup.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "hideOnClick",
+          "description": "Cierra el popup al hacer click fuera de él.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "showToInit",
+          "description": "Muestra el popup automáticamente al montar el componente.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "appendToBody",
+          "description": "Monta el popup en document.body en lugar del elemento padre (útil para evitar z-index y overflow).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "noPadding",
+          "description": "Elimina el padding interno del contenedor del popup.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el popup (no se puede abrir).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "offset",
+          "description": "Desplazamiento [x, y] en píxeles del popup respecto al trigger.",
+          "default": "[0, 10]"
+        },
+        {
+          "name": "flags",
+          "description": "Array de flags que al cambiar fuerzan un reposicionamiento del popup (hide + show).",
+          "default": "[]"
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "danger",
+              "description": "Flecha del tooltip en color rojo (danger)."
+            },
+            {
+              "name": "danger-light",
+              "description": "Flecha del tooltip en rojo claro (danger-light)."
+            },
+            {
+              "name": "pink",
+              "description": "Flecha del tooltip en rosa (pink)."
+            },
+            {
+              "name": "success",
+              "description": "Flecha del tooltip en verde (success)."
+            },
+            {
+              "name": "warning",
+              "description": "Flecha del tooltip en amarillo (warning)."
+            },
+            {
+              "name": "light-blue",
+              "description": "Flecha del tooltip en azul claro (light-blue)."
+            },
+            {
+              "name": "purple",
+              "description": "Flecha del tooltip en morado (purple-dark)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-quill-editor",
+      "description": "Editor de texto enriquecido basado en Quill. Soporta formatos de texto, alineación, listas, links e imágenes según el preset de toolbar elegido.",
+      "attributes": [
+        {
+          "name": "toolbar",
+          "description": "Preset de herramientas de edición. Ignorado si se usa toolbarItems.",
+          "values": [
+            {
+              "name": "minimal",
+              "description": "Solo negrita, cursiva, subrayado, alineación y color."
+            },
+            {
+              "name": "essential",
+              "description": "Encabezados H1-H6, negrita, cursiva, subrayado, tachado, alineación, blockquote, código, color y limpiar."
+            },
+            {
+              "name": "full",
+              "description": "Todo lo de essential más listas ordenadas/no ordenadas, sangría, links e imágenes."
+            }
+          ],
+          "default": "essential"
+        },
+        {
+          "name": "modelValue",
+          "description": "Contenido HTML del editor (v-model). El componente emite cadena vacía cuando el texto plano es vacío."
+        },
+        {
+          "name": "toolbarItems",
+          "description": "Array de configuración personalizada de la toolbar de Quill. Si se provee, ignora la prop toolbar."
+        },
+        {
+          "name": "maxlength",
+          "description": "Límite máximo de caracteres de texto plano. Bloquea el tipeo y el pegado al alcanzar el límite."
+        },
+        {
+          "name": "placeholder",
+          "description": "Texto de placeholder mostrado cuando el editor está vacío."
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        }
+      ]
+    },
+    {
+      "name": "v-radio-button",
+      "description": "Radio button circular con estilo verde (success). Se usa en grupos con v-model compartido y distintos valores.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "Valor actualmente seleccionado del grupo (v-model). El radio se marca cuando modelValue === value."
+        },
+        {
+          "name": "value",
+          "description": "Valor único que representa esta opción dentro del grupo. Se emite al seleccionar."
+        },
+        {
+          "name": "name",
+          "description": "Nombre del grupo de radio buttons (atributo HTML name). Agrupa botones para comportamiento de selección única.",
+          "default": ""
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente (atributo id del input).",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "v-select",
+      "description": "Select desplegable con cinco variantes visuales, subtipos de opciones y soporte de filtro.",
+      "attributes": [
+        {
+          "name": "typeSelect",
+          "description": "Variante visual del select.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Select estándar con borde gris. Alto: 35px → 30px (LG) → 35px (XL) → 55px (XXL)."
+            },
+            {
+              "name": "form",
+              "description": "Para formularios; con clase 'form' reduce XXL a 45px. Alto: 35px → 30px (LG) → 35px (XL) → 45-55px (XXL)."
+            },
+            {
+              "name": "small",
+              "description": "Compacto. Alto: 35px XS → 20px (LG) → 25px (XL) → 35px (XXL)."
+            },
+            {
+              "name": "plain",
+              "description": "Sin borde ni box-shadow, fondo blanco. Diseñado para integrarse en contenedores con estilo propio."
+            },
+            {
+              "name": "simple-arrow",
+              "description": "Sin borde, solo flecha desplegable. Alto: 25px uniforme."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "subTypeSelect",
+          "description": "Subtipo de visualización de las opciones del dropdown.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Opción estándar con texto."
+            },
+            {
+              "name": "color",
+              "description": "Header con fondo de color sólido (primary por defecto). Combinar con clases de color. Aplica a typeSelect='small' y 'form'."
+            },
+            {
+              "name": "option-icon",
+              "description": "Opciones con ícono a la izquierda. Aplica a typeSelect='form'."
+            },
+            {
+              "name": "option-char-icon",
+              "description": "Opciones con ícono de letra/carácter con fondo de color. Aplica a typeSelect='form'."
+            },
+            {
+              "name": "detail",
+              "description": "Opciones con texto principal y detalle secundario. Aplica a typeSelect='small'."
+            },
+            {
+              "name": "regular",
+              "description": "Fuente en tamaño regular. Aplica a typeSelect='small'."
+            },
+            {
+              "name": "normal",
+              "description": "Fuente en tamaño normal (más compacto). Aplica a typeSelect='small'."
+            },
+            {
+              "name": "small",
+              "description": "Variante pequeña de opción. Aplica a typeSelect='small'."
+            },
+            {
+              "name": "disable_option_icon",
+              "description": "Opciones con ícono que pueden tener estado deshabilitado. Aplica a typeSelect='form'."
+            },
+            {
+              "name": "example",
+              "description": "Opciones con texto de ejemplo adicional. Aplica a typeSelect='form'."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "options",
+          "description": "Array de opciones. Estructura: [{ value, description }] o con campos personalizados."
+        },
+        {
+          "name": "modelValue",
+          "description": "Valor seleccionado (v-model). Acepta string, number, array u object."
+        },
+        {
+          "name": "placeholder",
+          "description": "Texto mostrado cuando no hay valor seleccionado.",
+          "default": "Seleccionar"
+        },
+        {
+          "name": "openUp",
+          "description": "Despliega el dropdown hacia arriba en lugar de hacia abajo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "withFilter",
+          "description": "Habilita un input de búsqueda dentro del dropdown.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "showMessageFilter",
+          "description": "Muestra un mensaje informativo al final de la lista de opciones.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "messageFilter",
+          "description": "Texto del mensaje al final del dropdown (requiere showMessageFilter=true).",
+          "default": ""
+        },
+        {
+          "name": "separateOptionFilter",
+          "description": "Al seleccionar una opción, muestra el texto separado por puntos según charSplitSeparator.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "charSplitSeparator",
+          "description": "Caracter usado para separar la descripción al mostrar la opción seleccionada.",
+          "default": "-"
+        },
+        {
+          "name": "showExample",
+          "description": "Muestra un ejemplo adicional junto a las opciones. Aplica a subTypeSelect='example'.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "autoClean",
+          "description": "Limpia el input de filtro cuando se borra el valor seleccionado. Funciona junto a withFilter.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "fontFamily",
+          "description": "Fuente CSS aplicada al texto de las opciones del dropdown."
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el select como inválido con borde rojo y animación de sacudida.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el select con fondo gris e impide la interacción.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "w-full",
+              "description": "El select ocupa el 100% del ancho del contenedor."
+            },
+            {
+              "name": "ok",
+              "description": "Borde y flecha verdes (estado validado). Aplica a typeSelect='default', 'form' y 'small'."
+            },
+            {
+              "name": "success",
+              "description": "Alias de 'ok' en typeSelect='default' y 'form'. En subTypeSelect='color': fondo verde."
+            },
+            {
+              "name": "form",
+              "description": "Reduce la altura en XXL a 45px (en lugar de 55px). Usar siempre en typeSelect='form'."
+            },
+            {
+              "name": "no-padding",
+              "description": "Elimina el padding horizontal del header. Usar con typeSelect='form'."
+            },
+            {
+              "name": "justify-start",
+              "description": "Alinea el contenido del header a la izquierda. Solo typeSelect='plain'."
+            },
+            {
+              "name": "blue-light",
+              "description": "Fondo azul claro en el header. Solo subTypeSelect='color'."
+            },
+            {
+              "name": "warning",
+              "description": "Fondo amarillo en el header. Solo subTypeSelect='color'."
+            },
+            {
+              "name": "orange",
+              "description": "Fondo naranja en el header. Solo subTypeSelect='color'."
+            },
+            {
+              "name": "danger",
+              "description": "Fondo rojo en el header. Solo subTypeSelect='color'."
+            },
+            {
+              "name": "outline-success",
+              "description": "Fondo blanco con borde verde en el header. Solo subTypeSelect='color' y typeSelect='form'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-step",
+      "description": "Input numérico con botones +/− para incrementar o decrementar un valor. Soporta decimales y límites min/max.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "Valor numérico actual (v-model)."
+        },
+        {
+          "name": "step",
+          "description": "Incremento/decremento por cada pulsación del botón.",
+          "default": "1"
+        },
+        {
+          "name": "min",
+          "description": "Valor mínimo permitido. Deshabilita el botón − al alcanzarlo."
+        },
+        {
+          "name": "max",
+          "description": "Valor máximo permitido. Deshabilita el botón + al alcanzarlo."
+        },
+        {
+          "name": "decimals",
+          "description": "Número de decimales mostrados en el valor.",
+          "default": "2"
+        },
+        {
+          "name": "editable",
+          "description": "Permite editar el valor directamente en el input de texto.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el componente como inválido con borde rojo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "selector",
+              "description": "Variante compacta con fondo azul-extra-light. Alto: 23px XS → 20px LG → 25px XL → 30px XXL."
+            },
+            {
+              "name": "active",
+              "description": "Fondo azul-light. Combinar con 'selector' para indicar estado activo."
+            },
+            {
+              "name": "grid",
+              "description": "Variante muy compacta para grillas. Alto: 23px XS → 16px LG → 18px XL → 27px XXL."
+            },
+            {
+              "name": "round",
+              "description": "Botones +/− circulares. Combinar con 'grid'."
+            },
+            {
+              "name": "small",
+              "description": "Variante mínima. Alto: 22px XS → 9px LG → 10px XL → 15px XXL."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-switch",
+      "description": "Toggle switch on/off. Alto: 17px XS → 13px LG → 15px XL → 20px XXL. Soporta colores personalizados via props CSS.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "Estado encendido/apagado del switch (v-model). true = encendido.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "checked",
+          "description": "Estado inicial del switch (sin v-model). Alternativa a modelValue.",
+          "valueSet": "v"
+        },
+        {
+          "name": "activeColor",
+          "description": "Color CSS del knob (círculo) cuando el switch está activo. Se inyecta como --v-switch-active-color."
+        },
+        {
+          "name": "activeColorBackground",
+          "description": "Color CSS del track (fondo) cuando el switch está activo. Se inyecta como --v-switch-active-color-background."
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el switch e impide la interacción.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el switch como inválido con borde rojo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        }
+      ]
+    },
+    {
+      "name": "v-tab",
+      "description": "Pestaña individual usada dentro de v-tabs. Muestra texto, indicador de opcional, botón de cierre e ícono de error.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Texto de la pestaña. Prop requerida."
+        },
+        {
+          "name": "active",
+          "description": "Indica si la pestaña está activa (fondo blanco).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "optional",
+          "description": "Marca la pestaña como opcional (añade el texto '(Opcional)' y la oculta en modo colapsado).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "closeable",
+          "description": "Muestra un botón de cierre (X) en la pestaña. Al hacer click emite el evento 'close'.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "error",
+          "description": "Muestra un ícono de error en la pestaña cuando no está activa.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Atributo id del elemento raíz de la pestaña."
+        }
+      ]
+    },
+    {
+      "name": "v-tabs",
+      "description": "Contenedor de pestañas con soporte de colapso, carrusel y cierre individual. Slot '#content' recibe { tabIndex } para mostrar el panel activo.",
+      "attributes": [
+        {
+          "name": "tabs",
+          "description": "Array de pestañas. Estructura: [{ id: number, value: string, optional: boolean, closeable: boolean, error: boolean }].",
+          "default": "[]"
+        },
+        {
+          "name": "isCollapsed",
+          "description": "Colapsa las pestañas opcionales mostrando solo las no-opcionales. El usuario puede expandirlas con el botón 'advance'.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "textCollapsed",
+          "description": "Texto del botón de expansión cuando isCollapsed=true.",
+          "default": "null"
+        },
+        {
+          "name": "isVisibleHeader",
+          "description": "Muestra u oculta la barra de pestañas (el contenido sigue visible).",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "isCarruselActive",
+          "description": "Activa el modo carrusel cuando las pestañas desbordan el contenedor.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "goToLastPage",
+          "description": "En modo carrusel, navega automáticamente a la última página al montar.",
+          "valueSet": "v",
+          "default": "true"
+        },
+        {
+          "name": "gapItems",
+          "description": "Espacio en píxeles entre pestañas en el carrusel.",
+          "default": "10"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "height-full",
+              "description": "El componente y su contenido ocupan el 100% de la altura del contenedor (display flex + flex-grow)."
+            },
+            {
+              "name": "flex-tabs",
+              "description": "Layout flex vertical; el panel de contenido crece para llenar el espacio disponible."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-text",
+      "description": "Span de tipografía. Toda la apariencia se controla con clases externas (tamaño, peso, color, utilidades). Soporta texto alternativo en móvil via textXs/classXs.",
+      "attributes": [
+        {
+          "name": "text",
+          "description": "Texto a mostrar. En desktop muestra este valor; en móvil muestra textXs si está definido."
+        },
+        {
+          "name": "textXs",
+          "description": "Texto alternativo en resolución móvil. Reemplaza a text cuando isMobile=true."
+        },
+        {
+          "name": "classXs",
+          "description": "Clases CSS alternativas en resolución móvil. Si se omite, se usan las mismas clases que en desktop."
+        },
+        {
+          "name": "ellipsis",
+          "description": "Aplica la clase 'ellipsis' automáticamente (texto cortado con '...' en una línea).",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "fontFamily",
+          "description": "Familia tipográfica personalizada, aplicada como style inline. Úsese en casos excepcionales (tiendas con fuente propia)."
+        },
+        {
+          "name": "idx",
+          "description": "Atributo id del span raíz."
+        },
+        {
+          "name": "class",
+          "description": "Clases CSS modificadoras de apariencia.",
+          "values": [
+            {
+              "name": "v-h1",
+              "description": "Título 1. Font: 20px → 44px (LG) → 54px (XL) → 64px (XXL)."
+            },
+            {
+              "name": "v-h2",
+              "description": "Título 2. Font: 17px → 20px (LG) → 24px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-h3",
+              "description": "Título 3. Font: 16px → 24px (LG) → 27px (XL) → 30px (XXL)."
+            },
+            {
+              "name": "v-h4",
+              "description": "Título 4. Font: 15px → 16px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-h5",
+              "description": "Título 5. Font: 14px → 12px (LG) → 14px (XL) → 20px (XXL). El más usado en botones."
+            },
+            {
+              "name": "v-h6",
+              "description": "Título 6. Font: 14px → 12px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "v-p",
+              "description": "Párrafo. Font: 14px → 10px (LG) → 12px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-psmall",
+              "description": "Párrafo pequeño. Font: 11px → 8px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "v-ptiny",
+              "description": "Párrafo tiny. Font: 11px → 14px (LG) → 15px (XL) → 10px (XXL)."
+            },
+            {
+              "name": "v-t4",
+              "description": "Texto tabla 4. Font: 15px → 11px (LG) → 18px (XL) → 25px (XXL)."
+            },
+            {
+              "name": "v-t5",
+              "description": "Texto tabla 5. Font: 13px → 12px (LG) → 14px (XL) → 19px (XXL)."
+            },
+            {
+              "name": "v-t6",
+              "description": "Texto tabla 6. Font: 13px → 10px (LG) → 14px (XL) → 18px (XXL)."
+            },
+            {
+              "name": "light",
+              "description": "Font-weight: 100."
+            },
+            {
+              "name": "semilight",
+              "description": "Font-weight: 200."
+            },
+            {
+              "name": "regular",
+              "description": "Font-weight: 400."
+            },
+            {
+              "name": "semibold",
+              "description": "Font-weight: 600."
+            },
+            {
+              "name": "bold",
+              "description": "Font-weight: 700. El más usado en botones."
+            },
+            {
+              "name": "black",
+              "description": "Font-weight: 900."
+            },
+            {
+              "name": "white",
+              "description": "Color blanco. Muy usado en botones con fondo oscuro."
+            },
+            {
+              "name": "primary",
+              "description": "Color primario (azul por defecto). Es el color base de v-text."
+            },
+            {
+              "name": "success",
+              "description": "Color verde (éxito)."
+            },
+            {
+              "name": "danger",
+              "description": "Color rojo (peligro)."
+            },
+            {
+              "name": "danger-light",
+              "description": "Color rojo claro."
+            },
+            {
+              "name": "orange",
+              "description": "Color naranja."
+            },
+            {
+              "name": "warning",
+              "description": "Color amarillo (advertencia)."
+            },
+            {
+              "name": "info",
+              "description": "Color azul claro (alias de blue-light)."
+            },
+            {
+              "name": "blue-light",
+              "description": "Color azul claro."
+            },
+            {
+              "name": "light-blue",
+              "description": "Color azul muy claro."
+            },
+            {
+              "name": "gray-bold",
+              "description": "Color gris oscuro."
+            },
+            {
+              "name": "gray-dark",
+              "description": "Color gris oscuro variante."
+            },
+            {
+              "name": "gray-regular",
+              "description": "Color gris medio."
+            },
+            {
+              "name": "gray-semilight",
+              "description": "Color gris semitransparente."
+            },
+            {
+              "name": "gray-shadow",
+              "description": "Color gris sombra."
+            },
+            {
+              "name": "purple-dark",
+              "description": "Color púrpura oscuro."
+            },
+            {
+              "name": "red-bold",
+              "description": "Color rojo oscuro."
+            },
+            {
+              "name": "color-inherit",
+              "description": "Hereda el color del elemento padre."
+            },
+            {
+              "name": "uppercase",
+              "description": "Texto en mayúsculas."
+            },
+            {
+              "name": "capitalize",
+              "description": "Primera letra de cada palabra en mayúscula."
+            },
+            {
+              "name": "italic",
+              "description": "Texto en cursiva."
+            },
+            {
+              "name": "ellipsis",
+              "description": "Corta el texto con '...' si desborda en una línea."
+            },
+            {
+              "name": "whitespace-nowrap",
+              "description": "Impide que el texto haga salto de línea."
+            },
+            {
+              "name": "display inline",
+              "description": "Cambia display a inline. Usar ambas clases juntas: 'display inline'."
+            },
+            {
+              "name": "eight-line-height",
+              "description": "Line-height: 0.8."
+            },
+            {
+              "name": "half-line-height",
+              "description": "Line-height: 0.5."
+            },
+            {
+              "name": "fit-line-height",
+              "description": "Line-height: 1."
+            },
+            {
+              "name": "h-fit-content",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "text-align-left",
+              "description": "Texto alineado a la izquierda."
+            },
+            {
+              "name": "text-align-right",
+              "description": "Texto alineado a la derecha."
+            },
+            {
+              "name": "flex-1",
+              "description": "flex: 1 — el texto ocupa el espacio disponible."
+            },
+            {
+              "name": "w-fit",
+              "description": "Width: fit-content."
+            },
+            {
+              "name": "h-fit",
+              "description": "Height: fit-content."
+            },
+            {
+              "name": "block-wrap",
+              "description": "Display block con word-wrap para textos largos."
+            },
+            {
+              "name": "exo-2",
+              "description": "Fuente Exo 2 (--font-alt). Combinar con v-h1/v-h2/v-h5/v-p para tamaños específicos."
+            },
+            {
+              "name": "v-plan-negocio-1",
+              "description": "Tamaño especial plan negocio 1. Font: 40px → 24px (LG) → 25px (XL) → 40px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-2",
+              "description": "Tamaño especial plan negocio 2. Font: 16px → 14px (LG) → 15px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-3",
+              "description": "Tamaño especial plan negocio 3. Font: 16px → 10px (LG) → 10px (XL) → 16px (XXL)."
+            },
+            {
+              "name": "v-plan-negocio-4",
+              "description": "Tamaño especial plan negocio 4. Font: 12px → 9px (LG) → 10px (XL) → 12px (XXL)."
+            },
+            {
+              "name": "link",
+              "description": "Cursor pointer + subrayado. En v-paragraph emite el evento 'word-click' al hacer click."
+            },
+            {
+              "name": "cursor",
+              "description": "Cursor pointer sin subrayado."
+            },
+            {
+              "name": "white-space-pre-line",
+              "description": "Preserva saltos de línea del texto (white-space: pre-line)."
+            },
+            {
+              "name": "ellipsis-double-line",
+              "description": "Corta el texto a 2 líneas con '...'."
+            },
+            {
+              "name": "elipsis-line",
+              "description": "Corta el texto a 1 línea con '...' (word-break: break-word)."
+            },
+            {
+              "name": "elipsis-line double",
+              "description": "Corta a 2 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "elipsis-line quadruple",
+              "description": "Corta a 4 líneas. Combinar con 'elipsis-line'."
+            },
+            {
+              "name": "break-line",
+              "description": "Permite ruptura de línea larga (overflow-wrap + hyphens)."
+            },
+            {
+              "name": "break-all",
+              "description": "Rompe el texto en cualquier carácter (word-break: break-all)."
+            },
+            {
+              "name": "whitespace-normal",
+              "description": "Restaura white-space a normal."
+            },
+            {
+              "name": "no-select",
+              "description": "Deshabilita la selección de texto con el cursor."
+            },
+            {
+              "name": "border bottom primary",
+              "description": "Borde inferior en color primario. Usar las tres clases juntas."
+            },
+            {
+              "name": "border bottom blue-light",
+              "description": "Borde inferior en color azul claro. Usar las tres clases juntas."
+            },
+            {
+              "name": "required",
+              "description": "Añade un asterisco rojo (*) después del texto."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v-textarea",
+      "description": "Área de texto multilínea. Alto: 70px XS/LG → 85px XL → 120px XXL.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "Contenido del textarea (v-model)."
+        },
+        {
+          "name": "placeholder",
+          "description": "Texto de placeholder cuando el textarea está vacío."
+        },
+        {
+          "name": "maxlength",
+          "description": "Límite máximo de caracteres permitidos."
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el textarea como inválido con borde rojo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        }
+      ]
+    },
+    {
+      "name": "v-time",
+      "description": "Input de hora con formato HH:MM. Auto-formatea al tipear y completa la hora en blur. Alto: 35px XS → 20px LG → 25px XL → 35px XXL.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "Valor de hora en formato HH:MM (v-model)."
+        },
+        {
+          "name": "placeholder",
+          "description": "Texto de placeholder cuando no hay valor.",
+          "default": "00:00"
+        },
+        {
+          "name": "size",
+          "description": "Tamaño del componente.",
+          "values": [
+            {
+              "name": "default",
+              "description": "Tamaño estándar."
+            },
+            {
+              "name": "small",
+              "description": "Variante compacta."
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "name": "isAutcomplete",
+          "description": "Autocompleta la hora parcial al perder el foco (ej: '9' → '09:00'). Nota: prop con typo intencional ('Autcomplete' sin 'o').",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "description": "Desactiva el input e impide la interacción.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "invalid",
+          "description": "Marca el input como inválido con borde rojo.",
+          "valueSet": "v",
+          "default": "false"
+        },
+        {
+          "name": "idx",
+          "description": "Identificador único del componente."
+        }
+      ]
+    },
+    {
+      "name": "v-upload",
+      "description": "Componente de carga de archivos. Expone el slot '#upload-content' con { openLoadFiles } para personalizar el trigger de apertura del diálogo.",
+      "attributes": [
+        {
+          "name": "modelValue",
+          "description": "FileList con los archivos seleccionados (v-model)."
+        },
+        {
+          "name": "acceptFiles",
+          "description": "Tipos de archivo aceptados (atributo accept del input). Ej: 'image/*', '.pdf,.docx'.",
+          "default": ""
+        },
+        {
+          "name": "multiple",
+          "description": "Permite seleccionar múltiples archivos.",
+          "valueSet": "v",
+          "default": "false"
+        }
+      ]
+    }
+  ],
+  "globalAttributes": [],
+  "valueSets": [
+    {
+      "name": "v",
+      "values": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    }
+  ]
+}

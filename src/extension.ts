@@ -1,26 +1,46 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { loadComponents } from './lib/data-loader';
+import { loadClases } from './lib/class-loader';
+import type { ClassEntry } from './lib/class-loader';
+import { createCompletionProvider } from './providers/completion';
+import { createHoverProvider } from './providers/hover';
+import { registerScssLinter } from './scss-linter/index';
+import { scaffoldComponent } from './commands/scaffold';
+import { registerImportMapView } from './importmap/register';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+const DATA_FILE_GLOB = '**/node_modules/@erp-mf/erp2-components-vue/smartclic-data.json';
+const CLASES_GLOB = '**/erp-mf-estilos/src/assets/styles/_clases.scss';
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "smartclic-storybook" is now active!');
+export function activate(context: vscode.ExtensionContext): void {
+  const extensionUri = context.extensionUri;
+  let components = loadComponents(extensionUri);
+  let classes: ClassEntry[] = [];
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('smartclic-storybook.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from smartclic-storybook!');
-	});
+  const getComponents = () => components;
+  const getClasses = () => classes;
 
-	context.subscriptions.push(disposable);
+  loadClases().then(result => { classes = result; });
+
+  // Recarga los componentes si smartclic-data.json cambia en node_modules
+  const watcher = vscode.workspace.createFileSystemWatcher(DATA_FILE_GLOB);
+  watcher.onDidChange(() => { components = loadComponents(extensionUri); });
+  watcher.onDidCreate(() => { components = loadComponents(extensionUri); });
+
+  // Recarga las clases si _clases.scss cambia
+  const clasesWatcher = vscode.workspace.createFileSystemWatcher(CLASES_GLOB);
+  clasesWatcher.onDidChange(() => { loadClases().then(r => { classes = r; }); });
+  clasesWatcher.onDidCreate(() => { loadClases().then(r => { classes = r; }); });
+
+  context.subscriptions.push(
+    watcher,
+    clasesWatcher,
+    createCompletionProvider(extensionUri, getComponents, getClasses),
+    createHoverProvider(extensionUri, getComponents),
+    vscode.commands.registerCommand('smartclic.scaffoldComponent', scaffoldComponent),
+  );
+
+  registerScssLinter(context);
+  registerImportMapView(context);
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate(): void {}

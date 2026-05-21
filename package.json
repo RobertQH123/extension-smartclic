@@ -1,23 +1,204 @@
 {
   "name": "smartclic-storybook",
-  "displayName": "smartclic-storybook",
+  "displayName": "smartclic-devtools",
+  "publisher": "angelzevallos",
   "description": "IntelliSense y guías para componentes UI",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "license": "LICENSE.txt",
   "engines": {
-    "vscode": "^1.110.0"
+    "vscode": "^1.100.0"
   },
+  "icon": "icon.webp",
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:vue",
+    "onLanguage:html",
+    "onLanguage:scss"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "smartclic.importmapView",
+          "name": "Import Map",
+          "icon": "$(symbol-structure)"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "smartclic-storybook.helloWorld",
-        "title": "Hello World"
+        "command": "smartclic.scaffoldComponent",
+        "title": "Smartclic: Crear Componente"
+      },
+      {
+        "command": "smartclic.scss.fixAndSave",
+        "title": "Smartclic: Guardar con autofix SCSS"
+      },
+      {
+        "command": "smartclic.importmap.refresh",
+        "title": "Recargar",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "smartclic.importmap.allLocal",
+        "title": "Todo local",
+        "icon": "$(home)"
+      },
+      {
+        "command": "smartclic.importmap.allDev",
+        "title": "Todo dev",
+        "icon": "$(cloud)"
+      },
+      {
+        "command": "smartclic.importmap.toggle",
+        "title": "Cambiar",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "smartclic.importmap.toggleIp",
+        "title": "Cambiar IP",
+        "icon": "$(vm-connect)"
+      },
+      {
+        "command": "smartclic.importmap.startMfe",
+        "title": "Iniciar MFE",
+        "icon": "$(play)"
+      },
+      {
+        "command": "smartclic.importmap.stopMfe",
+        "title": "Detener MFE",
+        "icon": "$(primitive-square)"
+      },
+      {
+        "command": "smartclic.importmap.killExternal",
+        "title": "Detener MFE (externo)",
+        "icon": "$(primitive-square)"
+      },
+      {
+        "command": "smartclic.importmap.buildLibrary",
+        "title": "Build + Publicar librería en yalc",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "smartclic.importmap.yalcAdd",
+        "title": "Usar yalc local",
+        "icon": "$(plug)"
+      },
+      {
+        "command": "smartclic.importmap.yalcUpdate",
+        "title": "Actualizar desde yalc",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "smartclic.importmap.yalcRemove",
+        "title": "Quitar yalc",
+        "icon": "$(debug-disconnect)"
+      },
+      {
+        "command": "smartclic.importmap.showOutput",
+        "title": "Ver logs",
+        "icon": "$(output)"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "smartclic.scaffoldComponent",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "smartclic.importmap.allLocal",
+          "when": "view == smartclic.importmapView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "smartclic.importmap.allDev",
+          "when": "view == smartclic.importmapView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "smartclic.importmap.refresh",
+          "when": "view == smartclic.importmapView",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "smartclic.importmap.toggle",
+          "when": "view == smartclic.importmapView && viewItem =~ /cantoggle/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.startMfe",
+          "when": "view == smartclic.importmapView && viewItem =~ /local-offline/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.stopMfe",
+          "when": "view == smartclic.importmapView && viewItem =~ /hasprocess/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.showOutput",
+          "when": "view == smartclic.importmapView && viewItem =~ /hasprocess/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.toggleIp",
+          "when": "view == smartclic.importmapView && viewItem == ipMode",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.buildLibrary",
+          "when": "view == smartclic.importmapView && viewItem =~ /^library/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.yalcAdd",
+          "when": "view == smartclic.importmapView && viewItem =~ /-nexus/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.yalcUpdate",
+          "when": "view == smartclic.importmapView && viewItem =~ /-yalc/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.yalcRemove",
+          "when": "view == smartclic.importmapView && viewItem =~ /-yalc/",
+          "group": "inline"
+        }
+      ]
+    },
+    "snippets": [
+      {
+        "language": "scss",
+        "path": "./snippets/scss.json"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "smartclic.scss.fixAndSave",
+        "key": "ctrl+alt+s",
+        "when": "editorLangId == scss && editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Smartclic Dev Tools",
+      "properties": {
+        "smartclic.scss.autoFixOnSave": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Aplicar autofix SCSS al guardar normalmente (`Ctrl+S`). Si está desactivado, usar el atajo `Ctrl+Alt+S` (modificable en _Atajos de teclado_ → buscar `smartclic.scss.fixAndSave`)."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -34,15 +215,15 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.110.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "typescript-eslint": "^8.56.1",
-    "eslint": "^9.39.3",
+    "@types/vscode": "^1.100.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
     "esbuild": "^0.27.3",
+    "eslint": "^9.39.3",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.56.1"
   }
 }
