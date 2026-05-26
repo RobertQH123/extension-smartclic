@@ -19,7 +19,7 @@ export function lintDocument(document: vscode.TextDocument): LintResult[] {
 
   if (varMap) {
     results.push(...rawValueRule(document, varMap, aliases));   // F1/F2
-    results.push(...colorRule(document, varMap));               // F4/F5/F6
+    results.push(...colorRule(document, varMap, aliases));      // F4/F5/F6/F6b
   }
 
   return results;

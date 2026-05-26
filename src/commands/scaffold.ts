@@ -49,10 +49,10 @@ function generateScss(name: string, targetDir: string): string {
     : null;
 
   const imports: string[] = [];
-  if (relPath && stylesDir && fs.existsSync(path.join(stylesDir, 'mixin.scss'))) {
+  if (relPath && stylesDir && fs.existsSync(path.join(stylesDir, '_mixin.scss'))) {
     imports.push(`@use "${relPath}/mixin" as resol;`);
   }
-  if (relPath && stylesDir && fs.existsSync(path.join(stylesDir, 'variables.scss'))) {
+  if (relPath && stylesDir && fs.existsSync(path.join(stylesDir, '_variables.scss'))) {
     imports.push(`@use "${relPath}/variables" as vars;`);
   }
 
@@ -72,7 +72,8 @@ function scanDirs(root: string, depth = 0): vscode.QuickPickItem[] {
     for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
       if (!entry.isDirectory() || SKIP_DIRS.has(entry.name)) { continue; }
       const full = path.join(root, entry.name);
-      const label = path.relative(vscode.workspace.workspaceFolders![0].uri.fsPath, full).split(path.sep).join('/');
+      const wsRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? root;
+      const label = path.relative(wsRoot, full).split(path.sep).join('/');
       items.push({ label, description: full });
       items.push(...scanDirs(full, depth + 1));
     }

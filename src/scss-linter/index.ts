@@ -3,6 +3,8 @@ import type { TextFix } from './types';
 import { lintDocument } from './linter';
 import { ScssCodeActionProvider, buildAutoFixEdits } from './autofix';
 import { registerBreakpointCompletions } from './breakpoint-completions';
+import { registerColorCompletions } from './color-completions';
+import { ScssColorProvider } from './color-provider';
 
 const SCSS_LANG = { language: 'scss' };
 const DEBOUNCE_MS = 400;
@@ -85,6 +87,12 @@ export function registerScssLinter(context: vscode.ExtensionContext): void {
   );
 
   registerBreakpointCompletions(context);
+  registerColorCompletions(context);
+
+  const colorProviderDisposable = vscode.languages.registerColorProvider(
+    SCSS_LANG,
+    new ScssColorProvider()
+  );
 
   context.subscriptions.push(
     collection,
@@ -93,6 +101,7 @@ export function registerScssLinter(context: vscode.ExtensionContext): void {
     onCloseDisposable,
     onSaveDisposable,
     fixAndSaveDisposable,
-    codeActionDisposable
+    codeActionDisposable,
+    colorProviderDisposable
   );
 }

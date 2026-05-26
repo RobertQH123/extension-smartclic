@@ -35,11 +35,13 @@ export function createCompletionProvider(
           const attrName = attrValueMatch[2];
           const attrValue = attrValueMatch[3];
 
-          // Clases utilitarias — solo en atributo "class" y solo para elementos HTML nativos (no v-)
-          if (attrName === 'class' && !tagName.startsWith('v-')) {
+          // Clases utilitarias — atributo "class", ":class" o "v-bind:class", en cualquier tag
+          const isClassAttr = attrName === 'class' || attrName === ':class' || attrName === 'v-bind:class';
+          if (isClassAttr) {
             const classes = getClasses();
             if (!classes.length) { return undefined; }
-            const lastWord = attrValue.split(/\s+/).pop() ?? '';
+            // Para `:class="{ 'foo-"` extraemos la última palabra tras espacios, comillas o llaves
+            const lastWord = attrValue.split(/[\s{}'"`]/).pop() ?? '';
             const filtered = lastWord
               ? classes.filter(c => c.name.toLowerCase().startsWith(lastWord.toLowerCase()))
               : classes;
@@ -74,6 +76,37 @@ export function createCompletionProvider(
             item.documentation = md;
             return item;
           });
+        }
+
+        // Slots — activado cuando el cursor está en <template # o v-slot:
+        const slotTriggerMatch = linePrefix.match(/^\s*<template\s+(?:#|v-slot:)([\w-]*)$/);
+        if (slotTriggerMatch) {
+          const typedSlot = slotTriggerMatch[1].toLowerCase();
+          // Busca el componente padre escaneando hacia atrás
+          let parentComp: (typeof components)[string] | undefined;
+          for (let li = position.line - 1; li >= 0 && position.line - li <= 30; li--) {
+            const lt = document.lineAt(li).text;
+            const parentMatch = lt.match(/<([\w-]+)/);
+            if (parentMatch && components[parentMatch[1]]) {
+              parentComp = components[parentMatch[1]];
+              break;
+            }
+          }
+          if (parentComp?.slots?.length) {
+            const prefix = linePrefix.includes('v-slot:') ? 'v-slot:' : '#';
+            const typed = typedSlot;
+            return parentComp.slots
+              .filter(s => !typed || s.name.startsWith(typed))
+              .map((s, i) => {
+                const item = new vscode.CompletionItem(s.name, vscode.CompletionItemKind.Module);
+                item.detail = s.description ?? `Slot de ${parentComp!.name}`;
+                item.insertText = new vscode.SnippetString(`${s.name}>\n  $0\n</template>`);
+                item.documentation = new vscode.MarkdownString(s.description ?? '');
+                item.filterText = `${prefix}${s.name}`;
+                item.sortText = `0_${String(i).padStart(3, '0')}`;
+                return item;
+              });
+          }
         }
 
         // Nombres de atributos dentro del tag — usa contexto multi-línea para detectar el tag abierto
@@ -118,6 +151,6 @@ export function createCompletionProvider(
         return undefined;
       }
     },
-    ' ', '"', ':', '<', '-'
+    ' ', '"', ':', '<', '-', '#'
   );
 }
