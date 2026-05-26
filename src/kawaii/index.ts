@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { pickWelcomeMessage } from './messages';
-import { KawaiiTypingEffect } from './typing-effect';
+import { registerStartupSound } from './startup-sound';
+import { registerTabSound } from './tab-sound';
+import { isWaifuWriteEnabled, KawaiiTypingEffect } from './typing-effect';
 
 export { formatKawaiiDiagnostic } from './messages';
 
@@ -25,6 +27,8 @@ export function registerKawaii(context: vscode.ExtensionContext): void {
   showWelcome();
 
   const typingEffect = new KawaiiTypingEffect(context.extensionUri);
+  registerStartupSound(context);
+  registerTabSound(context);
 
   context.subscriptions.push(
     typingEffect,
@@ -32,7 +36,7 @@ export function registerKawaii(context: vscode.ExtensionContext): void {
       void vscode.window.showInformationMessage(pickWelcomeMessage());
     }),
     vscode.workspace.onDidChangeTextDocument(e => {
-      if (!vscode.workspace.getConfiguration('smartclic.kawaii').get<boolean>('typingEffect', true)) {
+      if (!isWaifuWriteEnabled()) {
         return;
       }
       const editor = vscode.window.activeTextEditor;

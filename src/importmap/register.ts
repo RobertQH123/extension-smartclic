@@ -29,7 +29,6 @@ const DIR_NAMES: Record<string, string> = {
   'erp-mf-security': 'erp-mf-seguridad',
   'erp-mf-common':   'erp-mf-comun',
 };
-
 // ── Buscar directorios ────────────────────────────────────────────────────────
 
 async function findMfeDir(shortName: string, mfeBase?: string | null): Promise<string | null> {
@@ -103,21 +102,17 @@ function spawnMfe(shortName: string, dir: string, cmd: string, onUpdate: () => v
     outputs.set(shortName, output);
   }
   output.clear();
-
   procStates.set(shortName, 'compiling');
   onUpdate();
 
   const [exe, ...args] = cmd.split(' ');
   const child = spawn(exe, args, { cwd: dir, shell: true });
   processes.set(shortName, child);
-
   const handle = (data: Buffer) => {
     const text = stripAnsi(data.toString());
     output!.append(text);
-
     const prev = procStates.get(shortName);
     let next: ProcState | undefined;
-
     if (/App running at:|compiled successfully|DONE\s+Compiled/i.test(text)) {
       next = 'running';
     } else if (/WAIT\s+Compiling|Compiling\.\.\.|Recompiling/i.test(text)) {
@@ -125,13 +120,11 @@ function spawnMfe(shortName: string, dir: string, cmd: string, onUpdate: () => v
     } else if (/Failed to compile|ERROR in|ERROR\s+Failed/i.test(text)) {
       next = 'error';
     }
-
     if (next && next !== prev) {
       procStates.set(shortName, next);
       if (next !== 'compiling') { compilePercents.delete(shortName); }
       onUpdate();
     }
-
     if (procStates.get(shortName) === 'compiling') {
       const m = text.match(/\b(\d{1,3})%/);
       if (m) {

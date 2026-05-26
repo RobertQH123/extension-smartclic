@@ -3,7 +3,7 @@
   "displayName": "smartclic-devtools",
   "publisher": "robergozu",
   "description": "IntelliSense y guías para componentes UI",
-  "version": "0.1.13",
+  "version": "0.1.31",
   "license": "LICENSE.txt",
   "engines": {
     "vscode": "^1.100.0"
@@ -20,12 +20,30 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "iconThemes": [
+      {
+        "id": "smartclic-folders",
+        "label": "Smartclic Icons",
+        "path": "./themes/smartclic-icon-theme.json"
+      }
+    ],
+    "configurationDefaults": {
+      "workbench.iconTheme": "smartclic-folders"
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "smartclic",
+          "title": "Import Map",
+          "icon": "media/importmap.svg"
+        }
+      ]
+    },
     "views": {
-      "explorer": [
+      "smartclic": [
         {
           "id": "smartclic.importmapView",
-          "name": "Import Map",
-          "icon": "$(symbol-structure)"
+          "name": "Import Map"
         }
       ]
     },
@@ -212,16 +230,20 @@
           "default": true,
           "description": "Mostrar errores y avisos del linter SCSS con mensajes kawaii (ej. \"Nani?! 😱 ... en línea 42\")."
         },
-        "smartclic.kawaii.typingEffect": {
+        "robertgozu.waifu.write": {
           "type": "boolean",
-          "default": true,
-          "description": "Efecto al escribir: sakura y mini waifus flotando desde el cursor (estilo Power Mode)."
+          "default": false,
+          "description": "Efecto al escribir: solo imágenes waifu de effects/ junto al cursor (desactivado por defecto)."
         },
-        "smartclic.kawaii.typingMode": {
-          "type": "string",
-          "enum": ["mixed"],
-          "default": "mixed",
-          "description": "Al escribir: un emoji anime o una waifu de effects/ al azar (uno solo, se reemplaza cada tecla)."
+        "robertgozu.waifu.tabSound": {
+          "type": "boolean",
+          "default": false,
+          "description": "Reproducir sonido (media/sounds/tab-open.wav) al abrir un archivo en una pestaña nueva."
+        },
+        "robertgozu.waifu.startupSound": {
+          "type": "boolean",
+          "default": false,
+          "description": "Reproducir sonido (media/sounds/startup.wav) al abrir o recargar VS Code / Cursor."
         }
       }
     }
@@ -233,6 +255,7 @@
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "generate:icons": "node scripts/generate-icon-theme.mjs",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
