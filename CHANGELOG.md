@@ -7,6 +7,12 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.2] — 2026-05-26
+
+### Changed
+
+- **File Icon Theme** ya no se activa automáticamente al instalar la extensión. Elige **Smartclic Icons** manualmente en *Settings → File Icon Theme* si lo quieres.
+
 ## [0.2.1] — 2026-05-26
 
 ### Added

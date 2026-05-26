@@ -3,7 +3,7 @@
   "displayName": "smartclic-devtools",
   "publisher": "angelzevallos",
   "description": "IntelliSense y guías para componentes UI",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "engines": {
     "vscode": "^1.100.0"
@@ -27,9 +27,6 @@
         "path": "./themes/smartclic-icon-theme.json"
       }
     ],
-    "configurationDefaults": {
-      "workbench.iconTheme": "smartclic-folders"
-    },
     "viewsContainers": {
       "activitybar": [
         {
