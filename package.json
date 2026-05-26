@@ -1,9 +1,9 @@
 {
   "name": "smartclic-storybook",
   "displayName": "smartclic-devtools",
-  "publisher": "robergozu",
+  "publisher": "angelzevallos",
   "description": "IntelliSense y guías para componentes UI",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "engines": {
     "vscode": "^1.100.0"
@@ -220,15 +220,10 @@
           "default": false,
           "markdownDescription": "Aplicar autofix SCSS al guardar normalmente (`Ctrl+S`). Si está desactivado, usar el atajo `Ctrl+Alt+S` (modificable en _Atajos de teclado_ → buscar `smartclic.scss.fixAndSave`)."
         },
-        "smartclic.kawaii.welcome": {
+        "robertgozu.waifu.message": {
           "type": "boolean",
-          "default": true,
-          "description": "Mostrar mensaje de bienvenida kawaii al abrir VS Code."
-        },
-        "smartclic.kawaii.errorMessages": {
-          "type": "boolean",
-          "default": true,
-          "description": "Mostrar errores y avisos del linter SCSS con mensajes kawaii (ej. \"Nani?! 😱 ... en línea 42\")."
+          "default": false,
+          "description": "Mensajes kawaii (bienvenida y diagnósticos SCSS). Si está desactivado, se usan mensajes normales."
         },
         "robertgozu.waifu.write": {
           "type": "boolean",

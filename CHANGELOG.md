@@ -7,6 +7,16 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.1] — 2026-05-26
+
+### Added
+
+- **Waifu behavior toggles in settings**:
+  - `robertgozu.waifu.tabSound` (default: `false`): plays `media/sounds/tab-open.wav` when opening a new editor tab.
+  - `robertgozu.waifu.startupSound` (default: `false`): plays `media/sounds/startup.wav` when VS Code/Cursor session initializes.
+  - `robertgozu.waifu.message` (default: `false`): enables kawaii-style welcome and SCSS diagnostic messages. When disabled, messages are plain/normal.
+  - `robertgozu.waifu.write` (default: `false`): enables waifu typing effect decorations while editing.
+
 ## [0.2.0] — 2026-05-25
 
 ### Added

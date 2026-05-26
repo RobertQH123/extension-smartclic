@@ -3,7 +3,7 @@ import type { TextFix } from './types';
 import { lintDocument } from './linter';
 import { ScssCodeActionProvider, buildAutoFixEdits } from './autofix';
 import { registerBreakpointCompletions } from './breakpoint-completions';
-import { formatKawaiiDiagnostic, isKawaiiErrorsEnabled } from '../kawaii';
+import { formatDiagnosticMessage } from '../kawaii';
 import { registerColorCompletions } from './color-completions';
 import { ScssColorProvider } from './color-provider';
 
@@ -27,19 +27,14 @@ export function registerScssLinter(context: vscode.ExtensionContext): void {
     if (isSourceStyleFile(document)) { collection.delete(document.uri); return; }
 
     const results = lintDocument(document);
-    const kawaii = isKawaiiErrorsEnabled();
     const diagnostics = results.map(r => {
-      const d = kawaii
-        ? new vscode.Diagnostic(
-            r.diagnostic.range,
-            formatKawaiiDiagnostic(r.diagnostic, r.diagnostic.severity),
-            r.diagnostic.severity
-          )
-        : r.diagnostic;
-      if (kawaii) {
-        d.source = r.diagnostic.source;
-        d.code = r.diagnostic.code;
-      }
+      const d = new vscode.Diagnostic(
+        r.diagnostic.range,
+        formatDiagnosticMessage(r.diagnostic, r.diagnostic.severity),
+        r.diagnostic.severity,
+      );
+      d.source = r.diagnostic.source;
+      d.code = r.diagnostic.code;
       if (r.fix) { fixMap.set(d, r.fix); }
       return d;
     });

@@ -56,3 +56,12 @@ export function formatKawaiiDiagnostic(
 export function pickWelcomeMessage(): string {
   return pickRandom(WELCOME_MESSAGES);
 }
+
+export function formatPlainDiagnostic(diagnostic: vscode.Diagnostic): string {
+  const line = diagnostic.range.start.line + 1;
+  return `Línea ${line}: ${diagnostic.message}`;
+}
+
+export function pickPlainWelcomeMessage(): string {
+  return 'Smartclic DevTools está listo.';
+}
