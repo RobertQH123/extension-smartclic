@@ -113,11 +113,23 @@ function spawnMfe(shortName: string, dir: string, cmd: string, onUpdate: () => v
     output!.append(text);
     const prev = procStates.get(shortName);
     let next: ProcState | undefined;
-    if (/App running at:|compiled successfully|DONE\s+Compiled/i.test(text)) {
+
+    if (
+      // webpack / vue-cli
+      /App running at:|compiled successfully|DONE\s+Compiled/i.test(text) ||
+      // Vite
+      /ready in \d+|Local:\s+https?:\/\//i.test(text) ||
+      // Rsbuild / Rspack
+      /build success|server running at/i.test(text)
+    ) {
       next = 'running';
-    } else if (/WAIT\s+Compiling|Compiling\.\.\.|Recompiling/i.test(text)) {
+    } else if (
+      /WAIT\s+Compiling|Compiling\.\.\.|Recompiling/i.test(text) ||
+      // Vite / Rsbuild rebuilding
+      /hmr update|page reload|rebuilding/i.test(text)
+    ) {
       next = 'compiling';
-    } else if (/Failed to compile|ERROR in|ERROR\s+Failed/i.test(text)) {
+    } else if (/Failed to compile|ERROR in|ERROR\s+Failed|Build failed/i.test(text)) {
       next = 'error';
     }
     if (next && next !== prev) {
@@ -252,6 +264,25 @@ function runYalcInMfe(mfeDir: string, args: string[], onDone: () => void): void 
   child.stderr?.on('data', d => out.append(d.toString()));
   child.on('close', code => {
     if (code !== 0) { vscode.window.showErrorMessage(`Error al ejecutar yalc ${args[0]}.`); }
+    onDone();
+  });
+}
+
+function cleanAndReinstall(mfeDir: string, onDone: () => void): void {
+  const out = getLibOutput();
+  out.appendLine('\n▶ Limpiando node_modules...');
+  try {
+    fs.rmSync(path.join(mfeDir, 'node_modules'), { recursive: true, force: true });
+  } catch {
+    out.appendLine('⚠ No se pudo eliminar node_modules.');
+  }
+  out.appendLine('▶ npm install...');
+  const install = spawn('npm', ['install'], { cwd: mfeDir, shell: true });
+  install.stdout?.on('data', d => out.append(d.toString()));
+  install.stderr?.on('data', d => out.append(d.toString()));
+  install.on('close', code => {
+    if (code !== 0) { vscode.window.showErrorMessage('Error en npm install tras yalc remove.'); }
+    else { out.appendLine('✓ node_modules reinstalado.'); }
     onDone();
   });
 }
@@ -448,10 +479,12 @@ export function registerImportMapView(context: vscode.ExtensionContext): void {
       if (!dir) { vscode.window.showWarningMessage(`No se encontró el directorio de ${shortName}.`); return; }
       yalcPending.set(shortName, 'removing');
       treeProvider.refresh();
-      runYalcInMfe(dir, ['remove', LIB_PKG_NAME], async () => {
-        yalcPending.delete(shortName);
-        await refreshYalcStatuses(provider);
-        treeProvider.refresh();
+      runYalcInMfe(dir, ['remove', LIB_PKG_NAME], () => {
+        cleanAndReinstall(dir, async () => {
+          yalcPending.delete(shortName);
+          await refreshYalcStatuses(provider);
+          treeProvider.refresh();
+        });
       });
     }),
   );

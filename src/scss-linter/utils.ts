@@ -58,6 +58,11 @@ export function extractValueContext(line: string): { colonIdx: number; value: st
   return { colonIdx, value: afterColon, prop: beforeColon };
 }
 
+// Construye la expresión canónica para referencias de colores CSS custom properties
+export function buildVarExpr(scssName: string, alias: string): string {
+  return `var(--${scssName}, ${alias}.$${scssName})`;
+}
+
 // Comprueba si el texto anterior tiene un `var(` sin cerrar
 // Usado para detectar si vars.$colorVar ya está dentro de var(...)
 export function isInsideVarCall(textBefore: string): boolean {

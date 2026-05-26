@@ -212,37 +212,59 @@ export class ImportMapProvider {
     });
   }
 
+  private readImportmap(filePath: string): Record<string, unknown> {
+    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    if (!content || typeof content.imports !== 'object') {
+      throw new Error('importmap.json inválido: falta la clave "imports"');
+    }
+    return content;
+  }
+
+  private writeImportmap(filePath: string, content: unknown): void {
+    fs.writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n', 'utf8');
+  }
+
   setEntry(name: string, url: string): void {
     if (!this.dir) { return; }
     const filePath = path.join(this.dir, 'importmap.json');
-    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    content.imports[name] = url;
-    fs.writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n', 'utf8');
+    try {
+      const content = this.readImportmap(filePath);
+      (content.imports as Record<string, string>)[name] = url;
+      this.writeImportmap(filePath, content);
+    } catch (err) {
+      vscode.window.showErrorMessage(`No se pudo actualizar importmap.json: ${(err as Error).message}`);
+    }
   }
 
   applyIpMode(): void {
     if (!this.dir) { return; }
     const filePath = path.join(this.dir, 'importmap.json');
-    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    for (const entry of this.getEntries()) {
-      if (entry.status !== 'local' || !entry.localUrl) { continue; }
-      content.imports[entry.name] = this.localUrl(entry.localUrl);
+    try {
+      const content = this.readImportmap(filePath);
+      for (const entry of this.getEntries()) {
+        if (entry.status !== 'local' || !entry.localUrl) { continue; }
+        (content.imports as Record<string, string>)[entry.name] = this.localUrl(entry.localUrl);
+      }
+      this.writeImportmap(filePath, content);
+    } catch (err) {
+      vscode.window.showErrorMessage(`No se pudo aplicar IP mode: ${(err as Error).message}`);
     }
-    fs.writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n', 'utf8');
   }
 
   setAll(target: 'local' | 'dev'): void {
     if (!this.dir) { return; }
     const filePath = path.join(this.dir, 'importmap.json');
-    const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-
-    for (const entry of this.getEntries()) {
-      const url = target === 'local'
-        ? (entry.localUrl ? this.localUrl(entry.localUrl) : null)
-        : entry.devUrl;
-      if (url) { content.imports[entry.name] = url; }
+    try {
+      const content = this.readImportmap(filePath);
+      for (const entry of this.getEntries()) {
+        const url = target === 'local'
+          ? (entry.localUrl ? this.localUrl(entry.localUrl) : null)
+          : entry.devUrl;
+        if (url) { (content.imports as Record<string, string>)[entry.name] = url; }
+      }
+      this.writeImportmap(filePath, content);
+    } catch (err) {
+      vscode.window.showErrorMessage(`No se pudo actualizar importmap.json: ${(err as Error).message}`);
     }
-
-    fs.writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n', 'utf8');
   }
 }

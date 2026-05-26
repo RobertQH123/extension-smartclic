@@ -13,7 +13,9 @@ Autocompletado y documentación en archivos `.vue` y `.html` para los componente
 - **Nombre del componente** (`<v-button`, `<v-text`, etc.): sugerencias filtradas con imagen de preview al pasar el cursor.
 - **Atributos**: al escribir dentro de un tag, lista todos los props disponibles con descripción y valor por defecto.
 - **Valores de atributo**: al escribir dentro de `type="..."`, `size="..."`, etc., lista los valores válidos con descripción y vista previa de la variante.
-- **Hover**: al posicionar el cursor sobre el nombre de un componente muestra su imagen de preview y descripción.
+- **Slots**: al escribir `<template #` o `<template v-slot:` dentro de un componente, autocompleta los slots disponibles con nombre y descripción.
+- **Hover**: al posicionar el cursor sobre el nombre de un componente muestra su imagen de preview, descripción y lista de slots; sobre un atributo muestra su descripción, valor por defecto y valores permitidos.
+- **Clases utilitarias**: en `class="..."`, `:class="..."` o `v-bind:class`, autocompleta las clases de `_clases.scss` mostrando las propiedades CSS que aplica.
 
 La extensión carga los datos desde `node_modules/@erp-mf/erp2-components-vue/smartclic-data.json` si existe en el workspace; de lo contrario usa el archivo empaquetado dentro de la extensión.
 
@@ -121,13 +123,44 @@ Tiene **autofix al guardar** y **acción de código**.
 
 ---
 
+**F6b — Variable de color bare sin alias**
+
+En archivos que no importan variables con `@use`, una referencia bare a `$colorVar` también se detecta y corrige:
+
+```scss
+// ❌ Error — $orange es un color y no se usa var()
+color: $orange;
+
+// ✅ Correcto (autofix genera la forma canónica sin alias)
+color: var(--orange, $orange);
+```
+
+Tiene **autofix al guardar** y **acción de código**.
+
+---
+
+**F7 — Import `@use` faltante**
+
+Si el archivo usa `vars.$nombre` sin tener el `@use` correspondiente, se reporta una advertencia con la sugerencia del import correcto.
+
+---
+
+#### Herramientas de color SCSS
+
+Además del linter, la extensión provee asistencia visual para variables de color:
+
+- **Swatches inline**: aparece un pequeño cuadrado de color a la izquierda de cada línea donde se use una variable de color (`vars.$blue`, `$orange`, etc.). Soporta hex, `rgb()` y `rgba()`. Clic abre el color picker (read-only: muestra el color sin modificar la referencia).
+- **Completions de color**: al escribir `$` dentro del valor de una propiedad CSS, muestra solo las variables de color registradas en `_variables.scss`, con el valor hex en la descripción y el snippet `var(--name, vars.$name)` como texto a insertar.
+
+---
+
 #### Comportamiento del linter
 
 | Evento | Acción |
 |--------|--------|
 | Abrir un archivo `.scss` | Lint inmediato |
 | Editar el archivo | Lint con 400ms de debounce |
-| Guardar el archivo | Aplica automáticamente todos los fixes disponibles (F1, F3, F4, F6) |
+| Guardar el archivo | Aplica automáticamente todos los fixes disponibles (F1, F3, F4, F6, F6b) |
 | Bombilla (💡) sobre un error | Permite aplicar el fix de forma manual y selectiva |
 
 ---
@@ -199,9 +232,28 @@ Solo se muestran entradas con nombre `@sreasons/*`. La extensión normaliza auto
 
 ---
 
-### 4. Snippets SCSS
+### 4. Snippets y completions SCSS
 
-Fragmentos de código para variables y mixins del design system en archivos `.scss`. Escribe el prefijo y presiona `Tab`.
+#### Breakpoints
+
+Escribe `bk` (o cualquier prefijo) dentro de un archivo `.scss` para ver las opciones disponibles:
+
+| Prefijo | Snippet generado |
+|---------|-----------------|
+| `bk` | Tres bloques `@include breakpoint(...)` para LG, XL y XXL |
+| `bklg` | `@include resol.breakpoint(vars.$bp-res-lg, min) { }` |
+| `bkxl` | `@include resol.breakpoint(vars.$bp-res-xl, min) { }` |
+| `bkxxl` | `@include resol.breakpoint(vars.$bp-res-xxl, min) { }` |
+
+El alias (`vars.`, `resol.`) se ajusta automáticamente según los `@use` presentes en el archivo.
+
+#### Variables de color
+
+Al escribir `$` en el valor de una propiedad CSS aparecen solo las variables de color de `_variables.scss`. Ver sección **Herramientas de color SCSS** arriba.
+
+#### Fragmentos de snippet
+
+Fragmentos adicionales en archivos `.scss`. Escribe el prefijo y presiona `Tab`.
 
 ---
 
@@ -248,5 +300,3 @@ La extensión funciona con cualquier workspace que contenga archivos `.vue`, `.h
 @use '@/assets/styles/variables' as vars;
 @use '@/assets/styles/mixin' as resol;
 ```
-#   e x t e n s i o n - s m a r t c l i c  
- 

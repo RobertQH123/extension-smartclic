@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
 import type { LintResult } from '../types';
 import type { VariableMap } from '../variable-parser';
 import type { ImportAliases } from '../utils';
-import { stripLineComment, isSkippableLine } from '../utils';
+import { stripLineComment, isSkippableLine, buildVarExpr } from '../utils';
 
 const VALID_ALIASES = new Set(['vars', 'resol']);
 const LOCAL_VAR_RE = /^\s*\$([\w-]+)\s*:/;
@@ -48,8 +48,13 @@ export function aliasRule(document: vscode.TextDocument, aliases: ImportAliases,
         const len = m[0].length;
         const range = new vscode.Range(i, col, i, col + len);
 
-        const correctAlias = varMap?.byName.get(varName)?.alias ?? 'vars';
-        const fix = `${correctAlias}.$${varName}`;
+        const variable = varMap?.byName.get(varName);
+        const correctAlias = variable?.alias ?? 'vars';
+
+        // Para colores el formato correcto es var(--name, alias.$name), no solo alias.$name
+        const fix = variable?.isColor
+          ? buildVarExpr(varName, correctAlias)
+          : `${correctAlias}.$${varName}`;
 
         const msg = alias
           ? `Alias \`${alias}\` incorrecto. Usa \`${fix}\`.`

@@ -10,8 +10,9 @@ export interface ScssVariable {
 }
 
 export interface VariableMap {
-  byValue: Map<string, ScssVariable>; // valor normalizado → variable
-  byName: Map<string, ScssVariable>;  // nombre → variable
+  byValue: Map<string, ScssVariable>;        // valor normalizado → primera variable declarada
+  byValueAll: Map<string, ScssVariable[]>;   // valor normalizado → todas las variables con ese valor
+  byName: Map<string, ScssVariable>;         // nombre → variable
 }
 
 const HEX_RE = /^#[0-9a-fA-F]{3,8}$/;
@@ -37,8 +38,9 @@ export function normalizeValue(value: string): string {
 }
 
 export function parseVariables(content: string, alias: string): VariableMap {
-  const byValue = new Map<string, ScssVariable>();
-  const byName = new Map<string, ScssVariable>();
+  const byValue    = new Map<string, ScssVariable>();
+  const byValueAll = new Map<string, ScssVariable[]>();
+  const byName     = new Map<string, ScssVariable>();
 
   const cleanedLines = content.split('\n').map(stripLineComment);
   const cleaned = cleanedLines.join('\n');
@@ -52,10 +54,16 @@ export function parseVariables(content: string, alias: string): VariableMap {
 
     const variable: ScssVariable = { name, rawValue, isColor: isColorValue(rawValue), alias };
     byName.set(name, variable);
-    byValue.set(normalizeValue(rawValue), variable);
+
+    const key = normalizeValue(rawValue);
+    // byValue preserva la primera declaración (determinístico por orden de archivo)
+    if (!byValue.has(key)) { byValue.set(key, variable); }
+    // byValueAll acumula todos los candidatos para el mismo valor
+    const existing = byValueAll.get(key);
+    if (existing) { existing.push(variable); } else { byValueAll.set(key, [variable]); }
   }
 
-  return { byValue, byName };
+  return { byValue, byValueAll, byName };
 }
 
 function findStylesFile(scssFilePath: string, fileName: string): string | null {
@@ -90,6 +98,14 @@ export function loadVariableMap(scssFilePath: string): VariableMap | null {
       }
       for (const [k, v] of mixinMap.byValue) {
         if (!map.byValue.has(k)) { map.byValue.set(k, v); }
+      }
+      for (const [k, vs] of mixinMap.byValueAll) {
+        const existing = map.byValueAll.get(k);
+        if (existing) {
+          for (const v of vs) { if (!existing.some(e => e.name === v.name)) { existing.push(v); } }
+        } else {
+          map.byValueAll.set(k, [...vs]);
+        }
       }
     }
 
