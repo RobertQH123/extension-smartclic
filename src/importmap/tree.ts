@@ -15,7 +15,6 @@ interface DisplayEntry extends MfeEntry {
   yalcPending: YalcPendingState | undefined;
   yalcJustUpdated: boolean;
 }
-
 export interface LibStatus {
   state: LibState;
   percent: number | undefined;

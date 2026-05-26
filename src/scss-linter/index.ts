@@ -3,6 +3,7 @@ import type { TextFix } from './types';
 import { lintDocument } from './linter';
 import { ScssCodeActionProvider, buildAutoFixEdits } from './autofix';
 import { registerBreakpointCompletions } from './breakpoint-completions';
+import { formatDiagnosticMessage } from '../kawaii';
 import { registerColorCompletions } from './color-completions';
 import { ScssColorProvider } from './color-provider';
 
@@ -27,8 +28,15 @@ export function registerScssLinter(context: vscode.ExtensionContext): void {
 
     const results = lintDocument(document);
     const diagnostics = results.map(r => {
-      if (r.fix) { fixMap.set(r.diagnostic, r.fix); }
-      return r.diagnostic;
+      const d = new vscode.Diagnostic(
+        r.diagnostic.range,
+        formatDiagnosticMessage(r.diagnostic, r.diagnostic.severity),
+        r.diagnostic.severity,
+      );
+      d.source = r.diagnostic.source;
+      d.code = r.diagnostic.code;
+      if (r.fix) { fixMap.set(d, r.fix); }
+      return d;
     });
     collection.set(document.uri, diagnostics);
   }

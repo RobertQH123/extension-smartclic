@@ -7,6 +7,7 @@ import { createHoverProvider } from './providers/hover';
 import { registerScssLinter } from './scss-linter/index';
 import { scaffoldComponent } from './commands/scaffold';
 import { registerImportMapView } from './importmap/register';
+import { registerKawaii } from './kawaii';
 
 const DATA_FILE_GLOB = '**/node_modules/@erp-mf/erp2-components-vue/smartclic-data.json';
 const CLASES_GLOB = '**/erp-mf-estilos/src/assets/styles/_clases.scss';
@@ -39,6 +40,7 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand('smartclic.scaffoldComponent', scaffoldComponent),
   );
 
+  registerKawaii(context);
   registerScssLinter(context);
   registerImportMapView(context);
 }
