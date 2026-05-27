@@ -15,7 +15,7 @@ Autocompletado y documentación en archivos `.vue` y `.html` para los componente
 - **Valores de atributo**: al escribir dentro de `type="..."`, `size="..."`, etc., lista los valores válidos con descripción y vista previa de la variante.
 - **Slots**: al escribir `<template #` o `<template v-slot:` dentro de un componente, autocompleta los slots disponibles con nombre y descripción.
 - **Hover**: al posicionar el cursor sobre el nombre de un componente muestra su imagen de preview, descripción y lista de slots; sobre un atributo muestra su descripción, valor por defecto y valores permitidos.
-- **Clases utilitarias**: en `class="..."`, `:class="..."` o `v-bind:class`, autocompleta las clases de `_clases.scss` mostrando las propiedades CSS que aplica.
+- **Clases**: en `class="..."`, `:class="..."` o `v-bind:class`, autocompleta primero las clases propias del componente (definidas en `smartclic-data.json`) y luego las clases utilitarias globales de `_clases.scss` con la descripción CSS que aplica. Las clases del componente aparecen siempre al inicio de la lista.
 
 La extensión carga los datos desde `node_modules/@erp-mf/erp2-components-vue/smartclic-data.json` si existe en el workspace; de lo contrario usa el archivo empaquetado dentro de la extensión.
 
@@ -191,6 +191,27 @@ Panel lateral (en el Explorador → **Import Map**) que muestra el estado de tod
 
 > El botón de logs solo está disponible para procesos iniciados con ▶ desde la extensión. Si el MFE fue iniciado manualmente en otra terminal, los logs no son capturados.
 
+#### Librería — Storybook
+
+La fila de la librería (`erp2-components-vue`) gestiona también el servidor de Storybook (`npm run storybook`, puerto 6006).
+
+| Ícono | Estado | Descripción |
+|-------|--------|-------------|
+| ✔ `pass` | Verde | Storybook corriendo (gestionado o externo detectado) |
+| ⟳ `sync~spin` | Amarillo | Iniciando o deteniendo |
+| ✖ `error` | Rojo | Storybook terminó con error |
+| — | — | Offline — puerto 6006 no responde |
+
+| Botón | Cuándo aparece | Acción |
+|-------|----------------|--------|
+| `$(play-circle)` | Storybook offline | Lanza `npm run storybook` en segundo plano |
+| `$(stop-circle)` | Gestionado o externo activo | Detiene el proceso; si fue iniciado fuera de VS Code usa `Stop-Process` (Windows) o `lsof`/`kill` (Unix) |
+| `$(output)` | Gestionado por la extensión | Abre el canal de logs de Storybook en el panel Output |
+
+La extensión verifica el puerto 6006 vía TCP en cada refresco del panel. Si ya está activo al presionar ▶, muestra un aviso informativo en lugar de intentar iniciarlo de nuevo.
+
+---
+
 #### Botones del panel (barra de título)
 
 | Botón | Acción |
@@ -250,6 +271,15 @@ El alias (`vars.`, `resol.`) se ajusta automáticamente según los `@use` presen
 #### Variables de color
 
 Al escribir `$` en el valor de una propiedad CSS aparecen solo las variables de color de `_variables.scss`. Ver sección **Herramientas de color SCSS** arriba.
+
+#### Variables no-color
+
+Al escribir dentro del valor de una propiedad CSS, la extensión también sugiere las variables no-color (dimensiones, espaciado, etc.) de `_variables.scss`:
+
+- **Por prefijo numérico**: al tipear `32` luego de `:` aparecen todas las variables cuyo valor empieza por ese número (`$pix-32: 32px`, `$dvh-32: 32dvh`, etc.). Funciona para cualquier unidad registrada.
+- **Por nombre con `$`**: al escribir `$pix-` (o cualquier inicio de nombre de variable) dentro del valor, se filtra la lista por nombre de variable.
+
+Las variables de color se excluyen de estas sugerencias — tienen su propio completado con swatch.
 
 #### Fragmentos de snippet
 

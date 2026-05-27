@@ -35,28 +35,48 @@ export function createCompletionProvider(
           const attrName = attrValueMatch[2];
           const attrValue = attrValueMatch[3];
 
-          // Clases utilitarias — atributo "class", ":class" o "v-bind:class", en cualquier tag
+          // Clases — atributo "class", ":class" o "v-bind:class"
+          // Combina: (1) clases propias del componente, (2) clases utilitarias globales
           const isClassAttr = attrName === 'class' || attrName === ':class' || attrName === 'v-bind:class';
           if (isClassAttr) {
-            const classes = getClasses();
-            if (!classes.length) { return undefined; }
             // Para `:class="{ 'foo-"` extraemos la última palabra tras espacios, comillas o llaves
             const lastWord = attrValue.split(/[\s{}'"`]/).pop() ?? '';
-            const filtered = lastWord
-              ? classes.filter(c => c.name.toLowerCase().startsWith(lastWord.toLowerCase()))
-              : classes;
             const replaceStart = position.character - lastWord.length;
             const range = new vscode.Range(position.line, replaceStart, position.line, position.character);
-            return filtered.map((entry, i) => {
+            const items: vscode.CompletionItem[] = [];
+
+            // 1 — Clases del componente (mayor prioridad, aparecen primero)
+            const compClassAttr = components[tagName]?.attributes.find(a => a.name === 'class');
+            if (compClassAttr?.values) {
+              const compFiltered = lastWord
+                ? compClassAttr.values.filter(v => v.name.toLowerCase().startsWith(lastWord.toLowerCase()))
+                : compClassAttr.values;
+              compFiltered.forEach((v, i) => {
+                const item = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.EnumMember);
+                item.detail = v.description ?? `Clase de ${tagName}`;
+                item.range = range;
+                item.sortText = `0_${String(i).padStart(4, '0')}`;
+                items.push(item);
+              });
+            }
+
+            // 2 — Clases utilitarias globales (_clases.scss)
+            const classes = getClasses();
+            const globalFiltered = lastWord
+              ? classes.filter(c => c.name.toLowerCase().startsWith(lastWord.toLowerCase()))
+              : classes;
+            globalFiltered.forEach((entry, i) => {
               const item = new vscode.CompletionItem(entry.name, vscode.CompletionItemKind.Value);
               item.detail = '_clases.scss';
               item.range = range;
-              item.sortText = `0_${String(i).padStart(4, '0')}`;
+              item.sortText = `1_${String(i).padStart(4, '0')}`;
               item.documentation = new vscode.MarkdownString(
                 `\`\`\`css\n.${entry.name} {\n  ${entry.css.replace(/\n/g, '\n  ')}\n}\n\`\`\``
               );
-              return item;
+              items.push(item);
             });
+
+            return items.length ? items : undefined;
           }
 
           const component = components[tagName];

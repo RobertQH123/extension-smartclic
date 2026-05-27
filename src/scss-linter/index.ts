@@ -5,6 +5,7 @@ import { ScssCodeActionProvider, buildAutoFixEdits } from './autofix';
 import { registerBreakpointCompletions } from './breakpoint-completions';
 import { formatDiagnosticMessage } from '../kawaii';
 import { registerColorCompletions } from './color-completions';
+import { registerVariableCompletions } from './variable-completions';
 import { ScssColorProvider } from './color-provider';
 
 const SCSS_LANG = { language: 'scss' };
@@ -96,6 +97,7 @@ export function registerScssLinter(context: vscode.ExtensionContext): void {
 
   registerBreakpointCompletions(context);
   registerColorCompletions(context);
+  registerVariableCompletions(context);
 
   const colorProviderDisposable = vscode.languages.registerColorProvider(
     SCSS_LANG,
