@@ -19,6 +19,8 @@ export interface LibStatus {
   state: LibState;
   percent: number | undefined;
   hasDir: boolean;
+  sbState: ProcState | undefined;
+  sbRunning: boolean | null; // null = not checked yet
 }
 
 export class LibraryTreeItem extends vscode.TreeItem {
@@ -44,6 +46,26 @@ export class LibraryTreeItem extends vscode.TreeItem {
     } else {
       this.iconPath = new vscode.ThemeIcon('package');
       this.description = 'sin publicar';
+    }
+
+    if (status.sbState === 'compiling' || status.sbState === 'stopping') {
+      this.iconPath = new vscode.ThemeIcon('sync~spin', COLOR_COMPILING);
+      this.description = (this.description ?? '') + ' · storybook ⟳';
+      this.contextValue += status.sbState === 'stopping' ? '-sb-stopping' : '-sb-hasprocess';
+    } else if (status.sbState === 'running') {
+      this.iconPath = new vscode.ThemeIcon('pass', COLOR_LOCAL);
+      this.description = (this.description ?? '') + ' · storybook ✔';
+      this.contextValue += '-sb-hasprocess';
+    } else if (status.sbState === 'error') {
+      this.iconPath = new vscode.ThemeIcon('error', COLOR_OFFLINE);
+      this.description = (this.description ?? '') + ' · storybook ✗';
+      this.contextValue += '-sb-hasprocess';
+    } else if (status.sbRunning === true) {
+      this.iconPath = new vscode.ThemeIcon('pass', COLOR_LOCAL);
+      this.description = (this.description ?? '') + ' · storybook ✔';
+      this.contextValue += '-sb-external';
+    } else {
+      this.contextValue += '-sb-offline';
     }
   }
 }

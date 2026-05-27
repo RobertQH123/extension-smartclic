@@ -7,6 +7,20 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.2.3] — 2026-05-26
+
+### Added
+
+- **SCSS variable completions (non-color)**: typing a number after `:` in a CSS property now suggests matching non-color variables from `_variables.scss` by raw value prefix (e.g. `32` → `$pix-32: 32px`, `$dvh-32: 32dvh`). Typing `$` anywhere in a value filters by variable name. Color variables are excluded — they use the existing color completion with swatch.
+- **Storybook button in Import Map**: the library row now shows Start/Stop/Logs buttons for Storybook (`npm run storybook`). The extension probes port 6006 via TCP on each refresh to detect an already-running external instance and shows ✔ with a Stop button. States: offline, compiling, running, error, external (started outside VS Code).
+
+### Fixed
+
+- **Class completions — component classes were missing**: when `_clases.scss` global classes were present, component-specific class values (from `smartclic-data.json`) were silently discarded. Both lists are now combined — component classes appear first (sortText `0_`), global utility classes second (`1_`).
+- **Library row — spurious MFE buttons**: the `hasprocess` pattern in `view/item/context` matched the library row, causing MFE-specific Stop and Logs buttons to appear on the library item. Fixed by anchoring the MFE condition to `^mfe`.
+
+---
+
 ## [0.2.2] — 2026-05-26
 
 ### Changed

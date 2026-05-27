@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as net from 'net';
 import { spawn, ChildProcess } from 'child_process';
 import type { ProcState, YalcStatus, YalcPendingState } from './provider';
 import { ImportMapProvider } from './provider';
@@ -15,9 +16,25 @@ const yalcStatuses    = new Map<string, YalcStatus>();
 const yalcPending     = new Map<string, YalcPendingState>();
 const yalcJustUpdated = new Set<string>();
 
-const libStatus: LibStatus = { state: 'idle', percent: undefined, hasDir: false };
+const libStatus: LibStatus = { state: 'idle', percent: undefined, hasDir: false, sbState: undefined, sbRunning: null };
 let   libDir: string | null = null;
 let   libOutput: vscode.OutputChannel | null = null;
+
+let sbProcess: ReturnType<typeof spawn> | null = null;
+let sbOutput:  vscode.OutputChannel | null = null;
+
+const SB_PORT = 6006;
+
+function isTcpPortOpen(port: number): Promise<boolean> {
+  return new Promise(resolve => {
+    const socket = new net.Socket();
+    socket.setTimeout(1000);
+    socket.once('connect', () => { socket.destroy(); resolve(true); });
+    socket.once('error', () => resolve(false));
+    socket.once('timeout', () => { socket.destroy(); resolve(false); });
+    socket.connect(port, '127.0.0.1');
+  });
+}
 
 const ANSI_RE = /\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])/g;
 function stripAnsi(s: string): string { return s.replace(ANSI_RE, ''); }
@@ -254,6 +271,108 @@ function buildAndPublishLibrary(onUpdate: () => void): void {
   });
 }
 
+// ── Storybook ─────────────────────────────────────────────────────────────────
+
+function getSbOutput(): vscode.OutputChannel {
+  if (!sbOutput) {
+    sbOutput = vscode.window.createOutputChannel('Storybook: erp2-components-vue');
+  }
+  return sbOutput;
+}
+
+function checkStorybookPort(onUpdate: () => void): void {
+  if (sbProcess) { return; } // proceso gestionado — su propio handler actualiza el estado
+  isTcpPortOpen(SB_PORT).then(reachable => {
+    if (libStatus.sbRunning !== reachable) {
+      libStatus.sbRunning = reachable;
+      onUpdate();
+    }
+  });
+}
+
+function spawnStorybook(onUpdate: () => void): void {
+  if (!libDir || sbProcess) { return; }
+
+  isTcpPortOpen(SB_PORT).then(reachable => {
+    if (reachable) {
+      libStatus.sbRunning = true;
+      onUpdate();
+      vscode.window.showInformationMessage(`Storybook ya está corriendo en localhost:${SB_PORT}.`);
+      return;
+    }
+
+    const dir = libDir!;
+    const out = getSbOutput();
+    out.clear();
+    out.show();
+
+    libStatus.sbState = 'compiling';
+    libStatus.sbRunning = null;
+    onUpdate();
+
+    const child = spawn('npm', ['run', 'storybook'], { cwd: dir, shell: true });
+    sbProcess = child;
+
+    const handle = (data: Buffer) => {
+      const text = stripAnsi(data.toString());
+      out.append(text);
+      const prev = libStatus.sbState;
+      let next: ProcState | undefined;
+
+      if (/storybook.*started|local:\s*https?:\/\//i.test(text)) {
+        next = 'running';
+      } else if (/building storybook|storybook builder/i.test(text)) {
+        next = 'compiling';
+      } else if (/error|failed/i.test(text)) {
+        next = 'error';
+      }
+
+      if (next && next !== prev) {
+        libStatus.sbState = next;
+        onUpdate();
+      }
+    };
+
+    child.stdout?.on('data', handle);
+    child.stderr?.on('data', handle);
+
+    child.on('close', () => {
+      sbProcess = null;
+      libStatus.sbState = undefined;
+      onUpdate();
+      checkStorybookPort(onUpdate);
+    });
+  });
+}
+
+async function killExternalStorybook(onUpdate: () => void): Promise<void> {
+  await new Promise<void>(resolve => {
+    const [cmd, ...args] = process.platform === 'win32'
+      ? ['powershell', '-Command', `Stop-Process -Id (Get-NetTCPConnection -LocalPort ${SB_PORT} -ErrorAction SilentlyContinue).OwningProcess -Force -ErrorAction SilentlyContinue`]
+      : ['bash', '-c', `kill -9 $(lsof -ti :${SB_PORT}) 2>/dev/null`];
+    spawn(cmd, args).on('close', resolve);
+  });
+  libStatus.sbRunning = false;
+  onUpdate();
+}
+
+function killStorybook(onUpdate: () => void): void {
+  if (!sbProcess) { return; }
+  libStatus.sbState = 'stopping';
+  onUpdate();
+  const child = sbProcess;
+  child.once('close', () => {
+    sbProcess = null;
+    libStatus.sbState = undefined;
+    onUpdate();
+  });
+  if (process.platform === 'win32' && child.pid) {
+    spawn('taskkill', ['/F', '/T', '/PID', String(child.pid)], { shell: true });
+  } else {
+    child.kill('SIGTERM');
+  }
+}
+
 // ── Yalc en MFE ──────────────────────────────────────────────────────────────
 
 function runYalcInMfe(mfeDir: string, args: string[], onDone: () => void): void {
@@ -317,6 +436,7 @@ export function registerImportMapView(context: vscode.ExtensionContext): void {
     libDir = await findLibraryDir();
     libStatus.hasDir = libDir !== null;
     treeProvider.refresh();
+    checkStorybookPort(() => treeProvider.refresh());
   };
 
   initAll();
@@ -426,6 +546,32 @@ export function registerImportMapView(context: vscode.ExtensionContext): void {
         return;
       }
       buildAndPublishLibrary(() => treeProvider.refresh());
+    }),
+
+    // ── Storybook ────────────────────────────────────────────────────────────
+
+    vscode.commands.registerCommand('smartclic.importmap.startStorybook', () => {
+      if (!libDir) {
+        vscode.window.showWarningMessage('No se encontró el repositorio de la librería.');
+        return;
+      }
+      spawnStorybook(() => treeProvider.refresh());
+    }),
+
+    vscode.commands.registerCommand('smartclic.importmap.stopStorybook', async () => {
+      if (sbProcess) {
+        killStorybook(() => treeProvider.refresh());
+      } else {
+        await killExternalStorybook(() => treeProvider.refresh());
+      }
+    }),
+
+    vscode.commands.registerCommand('smartclic.importmap.showStorybookOutput', () => {
+      if (sbOutput) {
+        sbOutput.show();
+      } else {
+        vscode.window.showInformationMessage('No hay logs de Storybook — iniciá el servidor primero.');
+      }
     }),
 
     // ── Yalc por MFE ─────────────────────────────────────────────────────────

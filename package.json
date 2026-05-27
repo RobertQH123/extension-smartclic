@@ -2,8 +2,8 @@
   "name": "smartclic-storybook",
   "displayName": "smartclic-devtools",
   "publisher": "angelzevallos",
-  "description": "IntelliSense y guías para componentes UI",
-  "version": "0.2.2",
+  "description": "In55telliSense y guías para componentes UI",
+  "version": "0.2.3",
   "license": "MIT",
   "engines": {
     "vscode": "^1.100.0"
@@ -13,34 +13,18 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished",
     "onLanguage:vue",
     "onLanguage:html",
     "onLanguage:scss"
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "iconThemes": [
-      {
-        "id": "smartclic-folders",
-        "label": "Smartclic Icons",
-        "path": "./themes/smartclic-icon-theme.json"
-      }
-    ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "smartclic",
-          "title": "Import Map",
-          "icon": "media/importmap.svg"
-        }
-      ]
-    },
     "views": {
-      "smartclic": [
+      "explorer": [
         {
           "id": "smartclic.importmapView",
-          "name": "Import Map"
+          "name": "Import Map",
+          "icon": "$(symbol-structure)"
         }
       ]
     },
@@ -48,10 +32,6 @@
       {
         "command": "smartclic.scaffoldComponent",
         "title": "Smartclic: Crear Componente"
-      },
-      {
-        "command": "smartclic.kawaii.welcome",
-        "title": "Smartclic: Saludo kawaii"
       },
       {
         "command": "smartclic.scss.fixAndSave",
@@ -121,6 +101,21 @@
         "command": "smartclic.importmap.showOutput",
         "title": "Ver logs",
         "icon": "$(output)"
+      },
+      {
+        "command": "smartclic.importmap.startStorybook",
+        "title": "Iniciar Storybook",
+        "icon": "$(play-circle)"
+      },
+      {
+        "command": "smartclic.importmap.stopStorybook",
+        "title": "Detener Storybook",
+        "icon": "$(stop-circle)"
+      },
+      {
+        "command": "smartclic.importmap.showStorybookOutput",
+        "title": "Ver logs de Storybook",
+        "icon": "$(output)"
       }
     ],
     "menus": {
@@ -161,12 +156,12 @@
         },
         {
           "command": "smartclic.importmap.stopMfe",
-          "when": "view == smartclic.importmapView && viewItem =~ /hasprocess/",
+          "when": "view == smartclic.importmapView && viewItem =~ /^mfe.*hasprocess/",
           "group": "inline"
         },
         {
           "command": "smartclic.importmap.showOutput",
-          "when": "view == smartclic.importmapView && viewItem =~ /hasprocess/",
+          "when": "view == smartclic.importmapView && viewItem =~ /^mfe.*hasprocess/",
           "group": "inline"
         },
         {
@@ -177,6 +172,21 @@
         {
           "command": "smartclic.importmap.buildLibrary",
           "when": "view == smartclic.importmapView && viewItem =~ /^library/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.startStorybook",
+          "when": "view == smartclic.importmapView && viewItem =~ /sb-offline/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.stopStorybook",
+          "when": "view == smartclic.importmapView && viewItem =~ /sb-hasprocess|sb-external/",
+          "group": "inline"
+        },
+        {
+          "command": "smartclic.importmap.showStorybookOutput",
+          "when": "view == smartclic.importmapView && viewItem =~ /sb-hasprocess/",
           "group": "inline"
         },
         {
@@ -216,26 +226,6 @@
           "type": "boolean",
           "default": false,
           "markdownDescription": "Aplicar autofix SCSS al guardar normalmente (`Ctrl+S`). Si está desactivado, usar el atajo `Ctrl+Alt+S` (modificable en _Atajos de teclado_ → buscar `smartclic.scss.fixAndSave`)."
-        },
-        "robertgozu.waifu.message": {
-          "type": "boolean",
-          "default": false,
-          "description": "Mensajes kawaii (bienvenida y diagnósticos SCSS). Si está desactivado, se usan mensajes normales."
-        },
-        "robertgozu.waifu.write": {
-          "type": "boolean",
-          "default": false,
-          "description": "Efecto al escribir: solo imágenes waifu de effects/ junto al cursor (desactivado por defecto)."
-        },
-        "robertgozu.waifu.tabSound": {
-          "type": "boolean",
-          "default": false,
-          "description": "Reproducir sonido (media/sounds/tab-open.wav) al abrir un archivo en una pestaña nueva."
-        },
-        "robertgozu.waifu.startupSound": {
-          "type": "boolean",
-          "default": false,
-          "description": "Reproducir sonido (media/sounds/startup.wav) al abrir o recargar VS Code / Cursor."
         }
       }
     }
@@ -247,7 +237,6 @@
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "package": "npm run check-types && npm run lint && node esbuild.js --production",
-    "generate:icons": "node scripts/generate-icon-theme.mjs",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
